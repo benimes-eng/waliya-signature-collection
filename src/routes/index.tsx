@@ -246,8 +246,9 @@ function WaliyaPage() {
   const fogOpacity = useTransform(progress, [0, 0.2, 0.4, 0.7, 1], [0, 0.4, 0.6, 0.5, 0.2]);
 
   // Hero text appears after Stage 3
-  const heroOpacity = useTransform(progress, [0.16, 0.22, 0.3], [0, 1, 1]);
+  const heroOpacity = useTransform(progress, [0.16, 0.22, 0.32, 0.4], [0, 1, 1, 0]);
   const heroY = useTransform(progress, [0.16, 0.22], [40, 0]);
+  const heroPointer = useTransform(progress, (v) => (v > 0.38 ? "none" : "auto"));
 
   return (
     <div ref={rootRef} className="relative grain vignette bg-background">
