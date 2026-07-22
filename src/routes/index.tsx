@@ -280,24 +280,34 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
     offset: ["start start", "end end"],
   });
 
-  // Timed to the intro section only — hero fades in at ~55% and out by ~92%.
+  // Cinematic timing: Ibex has the stage first (0–0.35), hero rises (0.35–0.55),
+  // holds (0.55–0.78), then eases out (0.78–0.92) leaving breathing room before Heritage.
   const heroOpacity = useTransform(
     localP,
-    [0.5, 0.62, 0.82, 0.94],
-    [0, 1, 1, 0],
+    [0.32, 0.42, 0.5, 0.78, 0.86, 0.92],
+    [0, 0.35, 1, 1, 0.4, 0],
   );
-  const heroY = useTransform(localP, [0.5, 0.7], [50, 0]);
-  const heroScale = useTransform(localP, [0.5, 0.7, 0.92], [0.96, 1, 1.02]);
+  const heroY = useTransform(
+    localP,
+    [0.32, 0.5, 0.78, 0.92],
+    [70, 0, -4, -40],
+  );
+  const heroScale = useTransform(
+    localP,
+    [0.32, 0.5, 0.78, 0.92],
+    [0.94, 1, 1.015, 1.04],
+  );
 
-  // Floating luxe items track intro scroll and parallax gently.
+  // Floating luxe items — smoother in/out with easing stops.
   const luxeOpacity = useTransform(
     localP,
-    [0, 0.15, 0.85, 1],
-    [0, 1, 1, 0],
+    [0, 0.08, 0.18, 0.8, 0.9, 1],
+    [0, 0.5, 1, 1, 0.4, 0],
   );
-  const luxeParallax = useTransform(localP, [0, 1], [0, -120]);
+  const luxeParallax = useTransform(localP, [0, 1], [40, -160]);
 
-  const scrollHintOpacity = useTransform(localP, [0, 0.1, 0.2], [1, 0.6, 0]);
+  const scrollHintOpacity = useTransform(localP, [0, 0.08, 0.18], [1, 0.7, 0]);
+
 
   return (
     <section ref={sectionRef} className="relative h-[220vh]">
