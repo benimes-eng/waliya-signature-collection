@@ -338,11 +338,6 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
   );
 }
 
-// unused legacy vars kept for compatibility, tree-shaken
-const _keep = { progress: null as MotionValue<number> | null };
-void _keep;
-export {}; // no-op to keep block boundary explicit
-// placeholder end
 
 /* ------------------------------------------------------------------ */
 /*  Page                                                              */
