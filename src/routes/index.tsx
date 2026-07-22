@@ -356,21 +356,28 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
 function WaliyaPage() {
   const rootRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: rootRef, offset: ["start start", "end end"] });
+  // Softer, more cinematic spring — reduces jitter and eases scroll-linked motion.
   const progress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 30,
-    mass: 0.6,
+    stiffness: 55,
+    damping: 26,
+    mass: 0.9,
+    restDelta: 0.0005,
   });
 
-  // Particle opacity strong during forge, fades later
+  // Particle opacity: dense during forge, whisper during body, resurge in finale.
   const particleOpacity = useTransform(
     progress,
-    [0, 0.05, 0.18, 0.22, 0.85, 0.95],
-    [1, 0.9, 0.4, 0.15, 0.15, 0.5],
+    [0, 0.04, 0.12, 0.22, 0.4, 0.82, 0.94, 1],
+    [1, 0.95, 0.6, 0.2, 0.12, 0.15, 0.55, 0.8],
   );
 
-  // Background fog wash
-  const fogOpacity = useTransform(progress, [0, 0.2, 0.4, 0.7, 1], [0, 0.4, 0.6, 0.5, 0.2]);
+  // Background fog — eased in/out with more stops for smoother wash.
+  const fogOpacity = useTransform(
+    progress,
+    [0, 0.15, 0.32, 0.55, 0.75, 0.92, 1],
+    [0, 0.35, 0.55, 0.6, 0.5, 0.3, 0.15],
+  );
+
 
 
 
