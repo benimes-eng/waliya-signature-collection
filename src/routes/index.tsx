@@ -96,30 +96,26 @@ function Particles({ opacity }: { opacity: MotionValue<number> }) {
 /*  Fixed Ibex layer — the emotional anchor                           */
 /* ------------------------------------------------------------------ */
 function IbexLayer({ progress }: { progress: MotionValue<number> }) {
-  // Stage 1: 0–0.06 forge-in
-  // Stage 2: 0.06–0.14 alive
-  // Stage 3: 0.14–0.20 recede to watermark
-  // Watermark: 0.20–0.85 stays behind
-  // Final: 0.85–1 returns fully
+  // Ibex is only visible during the intro (0–~0.22) and finale (0.88–1).
+  // Fully hidden across Heritage/Collection/About so it cannot bleed through.
   const opacity = useTransform(
     progress,
-    [0, 0.04, 0.14, 0.2, 0.5, 0.85, 0.95, 1],
-    [0, 1, 1, 0.18, 0.12, 0.2, 1, 1],
+    [0, 0.04, 0.16, 0.22, 0.88, 0.94, 1],
+    [0, 1, 1, 0, 0, 1, 1],
   );
   const scale = useTransform(
     progress,
-    [0, 0.06, 0.14, 0.2, 0.85, 1],
-    [0.6, 1, 1, 0.7, 0.72, 0.95],
+    [0, 0.06, 0.16, 0.22, 0.88, 1],
+    [0.6, 1, 1.02, 0.85, 0.75, 0.98],
   );
   const blur = useTransform(
     progress,
-    [0, 0.05, 0.14, 0.2, 0.85, 1],
-    [30, 0, 0, 6, 4, 0],
+    [0, 0.05, 0.16, 0.22, 0.88, 1],
+    [30, 0, 0, 10, 8, 0],
   );
   const rotate = useTransform(progress, [0, 1], [-1.5, 1.5]);
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
 
-  // Mouse parallax
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 40, damping: 20, mass: 1.2 });
@@ -137,33 +133,22 @@ function IbexLayer({ progress }: { progress: MotionValue<number> }) {
   }, [mx, my]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[10] flex items-center justify-center">
-      {/* Radial glow behind */}
-      <motion.div
-        style={{ opacity }}
-        className="absolute h-[80vh] w-[80vh] rounded-full"
-      >
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(176,133,88,0.14) 0%, rgba(176,133,88,0.05) 30%, transparent 65%)",
-          }}
-        />
-      </motion.div>
+    <motion.div
+      style={{ opacity }}
+      className="pointer-events-none fixed inset-0 z-[10] flex items-center justify-center"
+    >
+      <div
+        className="absolute h-[60vh] w-[60vh] rounded-full sm:h-[80vh] sm:w-[80vh]"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(176,133,88,0.18) 0%, rgba(176,133,88,0.05) 30%, transparent 65%)",
+        }}
+      />
 
       <motion.div
-        style={{
-          opacity,
-          scale,
-          filter,
-          rotate,
-          x: sx,
-          y: sy,
-        }}
+        style={{ scale, filter, rotate, x: sx, y: sy }}
         className="relative"
       >
-        {/* Breathing float */}
         <motion.div
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
@@ -171,7 +156,7 @@ function IbexLayer({ progress }: { progress: MotionValue<number> }) {
           <motion.img
             src={ibexSrc}
             alt="WALIYA Ibex emblem"
-            className="h-[78vh] w-auto max-w-none select-none"
+            className="h-[52vh] w-auto max-w-none select-none sm:h-[68vh] md:h-[78vh]"
             style={{
               filter:
                 "drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 40px rgba(176,133,88,0.15))",
@@ -182,7 +167,6 @@ function IbexLayer({ progress }: { progress: MotionValue<number> }) {
           />
         </motion.div>
 
-        {/* Chrome sweep highlight */}
         <motion.div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -194,7 +178,69 @@ function IbexLayer({ progress }: { progress: MotionValue<number> }) {
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
         />
       </motion.div>
-    </div>
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Floating luxury items — drifting emblems around the hero          */
+/* ------------------------------------------------------------------ */
+function FloatingLuxe({
+  opacity,
+  parallaxY,
+}: {
+  opacity: MotionValue<number>;
+  parallaxY: MotionValue<number>;
+}) {
+  const items = useMemo(
+    () => [
+      { left: "8%", top: "18%", size: 46, delay: 0, dur: 9, glyph: "◆" },
+      { left: "88%", top: "22%", size: 34, delay: 1.2, dur: 11, glyph: "✦" },
+      { left: "14%", top: "72%", size: 40, delay: 0.6, dur: 10, glyph: "❖" },
+      { left: "82%", top: "68%", size: 52, delay: 1.8, dur: 12, glyph: "◇" },
+      { left: "50%", top: "10%", size: 26, delay: 2.4, dur: 8, glyph: "✧" },
+      { left: "6%", top: "45%", size: 30, delay: 3, dur: 13, glyph: "•" },
+      { left: "94%", top: "48%", size: 30, delay: 0.9, dur: 14, glyph: "•" },
+    ],
+    [],
+  );
+  return (
+    <motion.div
+      style={{ opacity, y: parallaxY }}
+      className="pointer-events-none absolute inset-0 z-[8] hidden sm:block"
+    >
+      {items.map((it, i) => (
+        <motion.span
+          key={i}
+          className="absolute font-serif"
+          style={{
+            left: it.left,
+            top: it.top,
+            fontSize: it.size,
+            color:
+              i % 2 === 0 ? "rgba(176,133,88,0.55)" : "rgba(217,220,223,0.4)",
+            textShadow:
+              i % 2 === 0
+                ? "0 0 18px rgba(176,133,88,0.5)"
+                : "0 0 14px rgba(217,220,223,0.35)",
+          }}
+          animate={{
+            y: [0, -18, 0],
+            x: [0, i % 2 === 0 ? 8 : -8, 0],
+            rotate: [0, 6, 0],
+            opacity: [0.2, 0.9, 0.2],
+          }}
+          transition={{
+            duration: it.dur,
+            delay: it.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {it.glyph}
+        </motion.span>
+      ))}
+    </motion.div>
   );
 }
 
