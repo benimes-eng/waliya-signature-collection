@@ -528,7 +528,7 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  FINAL CTA                                                   */}
       {/* ============================================================ */}
-      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center px-6">
+      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center bg-background px-6 py-24">
         <div className="flex flex-col items-center text-center">
           <Reveal>
             <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
