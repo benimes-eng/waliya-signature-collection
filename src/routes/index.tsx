@@ -270,6 +270,81 @@ function Reveal({
 }
 
 /* ------------------------------------------------------------------ */
+/*  IntroStage — the cinematic hero, self-contained sticky            */
+/* ------------------------------------------------------------------ */
+function IntroStage({ progress }: { progress: MotionValue<number> }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: localP } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Timed to the intro section only — hero fades in at ~55% and out by ~92%.
+  const heroOpacity = useTransform(
+    localP,
+    [0.5, 0.62, 0.82, 0.94],
+    [0, 1, 1, 0],
+  );
+  const heroY = useTransform(localP, [0.5, 0.7], [50, 0]);
+  const heroScale = useTransform(localP, [0.5, 0.7, 0.92], [0.96, 1, 1.02]);
+
+  // Floating luxe items track intro scroll and parallax gently.
+  const luxeOpacity = useTransform(
+    localP,
+    [0, 0.15, 0.85, 1],
+    [0, 1, 1, 0],
+  );
+  const luxeParallax = useTransform(localP, [0, 1], [0, -120]);
+
+  const scrollHintOpacity = useTransform(localP, [0, 0.1, 0.2], [1, 0.6, 0]);
+
+  return (
+    <section ref={sectionRef} className="relative h-[220vh]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        <FloatingLuxe opacity={luxeOpacity} parallaxY={luxeParallax} />
+
+        <motion.div
+          style={{ opacity: scrollHintOpacity }}
+          className="scroll-hint tracking-luxe absolute inset-x-0 bottom-10 z-[25] text-center text-[0.6rem] text-[color:var(--steel)] md:bottom-14"
+        >
+          Scroll · Begin
+        </motion.div>
+
+        <motion.div
+          style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}
+          className="absolute inset-0 z-[20] flex items-center justify-center"
+        >
+          <div className="flex flex-col items-center px-6 text-center">
+            <span className="tracking-luxe mb-6 text-[0.6rem] text-[color:var(--bronze)] md:mb-8 md:text-[0.65rem]">
+              A House Forged in Altitude
+            </span>
+            <h1 className="font-serif text-[clamp(3.5rem,14vw,13rem)] leading-[0.9] text-chrome">
+              WALIYA
+            </h1>
+            <div className="hairline my-8 w-32 md:my-10 md:w-40" />
+            <p className="font-serif max-w-xl text-[clamp(1rem,2vw,1.8rem)] text-[color:var(--chrome)]/85">
+              Forged Above.
+              <br />
+              Crafted Beyond Trends.
+            </p>
+            <button className="btn-luxe mt-10 md:mt-14">
+              <span className="dot" />
+              Explore Collection
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// unused legacy vars kept for compatibility, tree-shaken
+const _keep = { progress: null as MotionValue<number> | null };
+void _keep;
+export {}; // no-op to keep block boundary explicit
+// placeholder end
+
+/* ------------------------------------------------------------------ */
 /*  Page                                                              */
 /* ------------------------------------------------------------------ */
 function WaliyaPage() {
