@@ -245,10 +245,10 @@ function WaliyaPage() {
   // Background fog wash
   const fogOpacity = useTransform(progress, [0, 0.2, 0.4, 0.7, 1], [0, 0.4, 0.6, 0.5, 0.2]);
 
-  // Hero text appears after Stage 3
-  const heroOpacity = useTransform(progress, [0.16, 0.22, 0.32, 0.4], [0, 1, 1, 0]);
+  // Hero text lives inside the intro section (sticky-contained).
+  // Fades in during Stage 4 and out well before Heritage starts.
+  const heroOpacity = useTransform(progress, [0.16, 0.20, 0.24, 0.28], [0, 1, 1, 0]);
   const heroY = useTransform(progress, [0.16, 0.22], [40, 0]);
-  const heroPointer = useTransform(progress, (v) => (v > 0.38 ? "none" : "auto"));
 
   return (
     <div ref={rootRef} className="relative grain vignette bg-background">
@@ -283,43 +283,45 @@ function WaliyaPage() {
       {/*  STAGE 1–4  (0–200vh) — Cinematic Introduction               */}
       {/* ============================================================ */}
       <section className="relative h-[200vh]">
-        {/* Stage 1 scroll hint */}
-        <div className="sticky top-0 flex h-screen items-end justify-center pb-14">
+        {/* Sticky stage — scoped to the intro; cannot bleed into later sections */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          {/* Scroll hint */}
           <motion.div
             style={{
               opacity: useTransform(progress, [0, 0.04, 0.08], [1, 0.6, 0]),
             }}
-            className="scroll-hint tracking-luxe text-[0.6rem] text-[color:var(--steel)]"
+            className="scroll-hint tracking-luxe absolute inset-x-0 bottom-14 text-center text-[0.6rem] text-[color:var(--steel)]"
           >
             Scroll · Begin
           </motion.div>
-        </div>
 
-        {/* Hero copy fades in during Stage 4 */}
-        <motion.div
-          style={{ opacity: heroOpacity, y: heroY, pointerEvents: heroPointer as unknown as never }}
-          className="fixed inset-0 z-[20] flex items-center justify-center"
-        >
-          <div className="pointer-events-auto flex flex-col items-center px-6 text-center">
-            <span className="tracking-luxe mb-8 text-[0.65rem] text-[color:var(--bronze)]">
-              A House Forged in Altitude
-            </span>
-            <h1 className="font-serif text-[clamp(4rem,14vw,13rem)] leading-[0.9] text-chrome">
-              WALIYA
-            </h1>
-            <div className="hairline my-10 w-40" />
-            <p className="font-serif text-[clamp(1.1rem,2vw,1.8rem)] text-[color:var(--chrome)]/85 max-w-xl">
-              Forged Above.
-              <br />
-              Crafted Beyond Trends.
-            </p>
-            <button className="btn-luxe mt-14">
-              <span className="dot" />
-              Explore Collection
-            </button>
-          </div>
-        </motion.div>
+          {/* Hero copy fades in during Stage 4 */}
+          <motion.div
+            style={{ opacity: heroOpacity, y: heroY }}
+            className="absolute inset-0 z-[20] flex items-center justify-center"
+          >
+            <div className="flex flex-col items-center px-6 text-center">
+              <span className="tracking-luxe mb-8 text-[0.65rem] text-[color:var(--bronze)]">
+                A House Forged in Altitude
+              </span>
+              <h1 className="font-serif text-[clamp(4rem,14vw,13rem)] leading-[0.9] text-chrome">
+                WALIYA
+              </h1>
+              <div className="hairline my-10 w-40" />
+              <p className="font-serif text-[clamp(1.1rem,2vw,1.8rem)] text-[color:var(--chrome)]/85 max-w-xl">
+                Forged Above.
+                <br />
+                Crafted Beyond Trends.
+              </p>
+              <button className="btn-luxe mt-14">
+                <span className="dot" />
+                Explore Collection
+              </button>
+            </div>
+          </motion.div>
+        </div>
       </section>
+
 
       {/* ============================================================ */}
       {/*  HERITAGE                                                    */}
