@@ -500,8 +500,9 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  ABOUT                                                       */}
       {/* ============================================================ */}
-      <section className="relative z-[15] min-h-[120vh] px-6 md:px-14">
-        <div className="mx-auto flex min-h-[120vh] max-w-6xl flex-col justify-center py-40">
+      <section className="relative z-[15] min-h-[120vh] bg-background px-6 md:px-14">
+        <div className="mx-auto flex min-h-[120vh] max-w-6xl flex-col justify-center py-24 md:py-40">
+
           <Reveal>
             <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
               III · Philosophy
