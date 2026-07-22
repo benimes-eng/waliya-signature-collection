@@ -297,8 +297,8 @@ function WaliyaPage() {
 
         {/* Hero copy fades in during Stage 4 */}
         <motion.div
-          style={{ opacity: heroOpacity, y: heroY }}
-          className="pointer-events-none fixed inset-0 z-[20] flex items-center justify-center"
+          style={{ opacity: heroOpacity, y: heroY, pointerEvents: heroPointer as unknown as never }}
+          className="fixed inset-0 z-[20] flex items-center justify-center"
         >
           <div className="pointer-events-auto flex flex-col items-center px-6 text-center">
             <span className="tracking-luxe mb-8 text-[0.65rem] text-[color:var(--bronze)]">
