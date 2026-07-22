@@ -318,53 +318,71 @@ function WaliyaPage() {
       <IbexLayer progress={progress} />
 
       {/* Fixed brand mark */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-[50] flex items-center justify-between px-8 py-6 md:px-14">
-        <span className="tracking-luxe text-[0.65rem] text-chrome">Waliya</span>
-        <span className="tracking-luxe text-[0.65rem] text-[color:var(--steel)]">
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-[50] flex items-center justify-between px-6 py-5 md:px-14 md:py-6">
+        <span className="tracking-luxe text-[0.6rem] text-chrome md:text-[0.65rem]">
+          Waliya
+        </span>
+        <span className="tracking-luxe text-[0.6rem] text-[color:var(--steel)] md:text-[0.65rem]">
           Est. Ethiopia
         </span>
       </div>
 
       {/* ============================================================ */}
-      {/*  STAGE 1–4  (0–200vh) — Cinematic Introduction               */}
+      {/*  STAGE 1–4 — Cinematic Introduction (self-contained sticky)  */}
       {/* ============================================================ */}
-      <section className="relative h-[200vh]">
-        {/* Sticky stage — scoped to the intro; cannot bleed into later sections */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
-          {/* Scroll hint */}
-          <motion.div
-            style={{
-              opacity: useTransform(progress, [0, 0.04, 0.08], [1, 0.6, 0]),
-            }}
-            className="scroll-hint tracking-luxe absolute inset-x-0 bottom-14 text-center text-[0.6rem] text-[color:var(--steel)]"
-          >
-            Scroll · Begin
-          </motion.div>
+      <IntroStage progress={progress} />
 
-          {/* Hero copy fades in during Stage 4 */}
-          <motion.div
-            style={{ opacity: heroOpacity, y: heroY }}
-            className="absolute inset-0 z-[20] flex items-center justify-center"
-          >
-            <div className="flex flex-col items-center px-6 text-center">
-              <span className="tracking-luxe mb-8 text-[0.65rem] text-[color:var(--bronze)]">
-                A House Forged in Altitude
-              </span>
-              <h1 className="font-serif text-[clamp(4rem,14vw,13rem)] leading-[0.9] text-chrome">
-                WALIYA
-              </h1>
-              <div className="hairline my-10 w-40" />
-              <p className="font-serif text-[clamp(1.1rem,2vw,1.8rem)] text-[color:var(--chrome)]/85 max-w-xl">
-                Forged Above.
-                <br />
-                Crafted Beyond Trends.
-              </p>
-              <button className="btn-luxe mt-14">
-                <span className="dot" />
-                Explore Collection
-              </button>
-            </div>
-          </motion.div>
+      {/* Breathing gap between intro and heritage — prevents overlap */}
+      <div className="relative h-[30vh] md:h-[40vh]">
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
+      </div>
+
+      {/* ============================================================ */}
+      {/*  HERITAGE                                                    */}
+      {/* ============================================================ */}
+      <section className="relative z-[15] min-h-[140vh] bg-background px-6 md:px-14">
+        <div
+          className="topo pointer-events-none absolute inset-0 opacity-70"
+          aria-hidden
+        />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45vh] overflow-hidden opacity-30">
+          <img
+            src={mountainsSrc}
+            alt=""
+            className="h-full w-full object-cover"
+            style={{ filter: "grayscale(1) contrast(1.2) brightness(0.35)" }}
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+        </div>
+
+        <div className="relative mx-auto flex min-h-[140vh] max-w-6xl flex-col justify-center py-24 md:py-40">
+          <Reveal>
+            <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
+              I · Heritage
+            </span>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <h2 className="font-serif mt-10 text-[clamp(2.5rem,8vw,7rem)] leading-[0.95] text-chrome">
+              Forged Above.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.3}>
+            <h2 className="font-serif text-[clamp(2.5rem,8vw,7rem)] leading-[0.95] text-[color:var(--chrome)]/70">
+              Inspired by Altitude.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.45}>
+            <h2 className="font-serif text-[clamp(2.5rem,8vw,7rem)] leading-[0.95] text-[color:var(--chrome)]/45">
+              Rooted in Ethiopia.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.6}>
+            <h2 className="font-serif text-[clamp(2.5rem,8vw,7rem)] leading-[0.95] text-[color:var(--chrome)]/25">
+              Crafted for the World.
+            </h2>
+          </Reveal>
         </div>
       </section>
 
