@@ -387,54 +387,7 @@ function WaliyaPage() {
       </section>
 
 
-      {/* ============================================================ */}
-      {/*  HERITAGE                                                    */}
-      {/* ============================================================ */}
-      <section className="relative z-[15] min-h-[140vh] px-6 md:px-14">
-        <div
-          className="topo pointer-events-none absolute inset-0 opacity-70"
-          aria-hidden
-        />
-        {/* Distant mountain silhouette */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45vh] overflow-hidden opacity-30">
-          <img
-            src={mountainsSrc}
-            alt=""
-            className="h-full w-full object-cover"
-            style={{ filter: "grayscale(1) contrast(1.2) brightness(0.35)" }}
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-        </div>
 
-        <div className="relative mx-auto flex min-h-[140vh] max-w-6xl flex-col justify-center py-40">
-          <Reveal>
-            <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
-              I · Heritage
-            </span>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <h2 className="font-serif mt-10 text-[clamp(3rem,8vw,7rem)] leading-[0.95] text-chrome">
-              Forged Above.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.3}>
-            <h2 className="font-serif text-[clamp(3rem,8vw,7rem)] leading-[0.95] text-[color:var(--chrome)]/70">
-              Inspired by Altitude.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.45}>
-            <h2 className="font-serif text-[clamp(3rem,8vw,7rem)] leading-[0.95] text-[color:var(--chrome)]/45">
-              Rooted in Ethiopia.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.6}>
-            <h2 className="font-serif text-[clamp(3rem,8vw,7rem)] leading-[0.95] text-[color:var(--chrome)]/25">
-              Crafted for the World.
-            </h2>
-          </Reveal>
-        </div>
-      </section>
 
       {/* ============================================================ */}
       {/*  COLLECTION — museum exhibits                                */}
