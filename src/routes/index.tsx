@@ -603,7 +603,7 @@ function Exhibit({
   return (
     <div
       ref={ref}
-      className="relative mx-auto my-40 grid max-w-6xl grid-cols-1 items-center gap-16 px-6 md:grid-cols-12 md:px-14"
+      className="relative mx-auto my-20 grid max-w-6xl grid-cols-1 items-center gap-10 px-6 md:my-40 md:grid-cols-12 md:gap-16 md:px-14"
     >
       <div
         className={`md:col-span-7 ${align === "right" ? "md:order-2" : ""}`}
