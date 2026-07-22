@@ -1,12 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   useSpring,
   useMotionValue,
-  useMotionValueEvent,
   type MotionValue,
 } from "motion/react";
 import ibexSrc from "../assets/ibex.png";
