@@ -96,25 +96,26 @@ function Particles({ opacity }: { opacity: MotionValue<number> }) {
 /*  Fixed Ibex layer — the emotional anchor                           */
 /* ------------------------------------------------------------------ */
 function IbexLayer({ progress }: { progress: MotionValue<number> }) {
-  // Ibex is only visible during the intro (0–~0.22) and finale (0.88–1).
-  // Fully hidden across Heritage/Collection/About so it cannot bleed through.
+  // Ibex forges in slowly, holds, recedes with easing; returns as a whisper in the finale.
+  // Curves shaped with multi-stop interpolation to emulate cubic-bezier(0.22,1,0.36,1).
   const opacity = useTransform(
     progress,
-    [0, 0.04, 0.16, 0.22, 0.88, 0.94, 1],
-    [0, 1, 1, 0, 0, 1, 1],
+    [0, 0.03, 0.07, 0.14, 0.19, 0.24, 0.86, 0.92, 0.97, 1],
+    [0, 0.35, 0.85, 1, 1, 0, 0, 0.4, 0.9, 1],
   );
   const scale = useTransform(
     progress,
-    [0, 0.06, 0.16, 0.22, 0.88, 1],
-    [0.6, 1, 1.02, 0.85, 0.75, 0.98],
+    [0, 0.05, 0.1, 0.16, 0.22, 0.86, 0.94, 1],
+    [0.62, 0.86, 0.98, 1.01, 0.9, 0.78, 0.9, 1],
   );
   const blur = useTransform(
     progress,
-    [0, 0.05, 0.16, 0.22, 0.88, 1],
-    [30, 0, 0, 10, 8, 0],
+    [0, 0.04, 0.09, 0.16, 0.22, 0.86, 0.94, 1],
+    [40, 14, 2, 0, 12, 10, 3, 0],
   );
-  const rotate = useTransform(progress, [0, 1], [-1.5, 1.5]);
+  const rotate = useTransform(progress, [0, 0.5, 1], [-1.4, 0, 1.4]);
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
+
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -279,24 +280,34 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
     offset: ["start start", "end end"],
   });
 
-  // Timed to the intro section only — hero fades in at ~55% and out by ~92%.
+  // Cinematic timing: Ibex has the stage first (0–0.35), hero rises (0.35–0.55),
+  // holds (0.55–0.78), then eases out (0.78–0.92) leaving breathing room before Heritage.
   const heroOpacity = useTransform(
     localP,
-    [0.5, 0.62, 0.82, 0.94],
-    [0, 1, 1, 0],
+    [0.32, 0.42, 0.5, 0.78, 0.86, 0.92],
+    [0, 0.35, 1, 1, 0.4, 0],
   );
-  const heroY = useTransform(localP, [0.5, 0.7], [50, 0]);
-  const heroScale = useTransform(localP, [0.5, 0.7, 0.92], [0.96, 1, 1.02]);
+  const heroY = useTransform(
+    localP,
+    [0.32, 0.5, 0.78, 0.92],
+    [70, 0, -4, -40],
+  );
+  const heroScale = useTransform(
+    localP,
+    [0.32, 0.5, 0.78, 0.92],
+    [0.94, 1, 1.015, 1.04],
+  );
 
-  // Floating luxe items track intro scroll and parallax gently.
+  // Floating luxe items — smoother in/out with easing stops.
   const luxeOpacity = useTransform(
     localP,
-    [0, 0.15, 0.85, 1],
-    [0, 1, 1, 0],
+    [0, 0.08, 0.18, 0.8, 0.9, 1],
+    [0, 0.5, 1, 1, 0.4, 0],
   );
-  const luxeParallax = useTransform(localP, [0, 1], [0, -120]);
+  const luxeParallax = useTransform(localP, [0, 1], [40, -160]);
 
-  const scrollHintOpacity = useTransform(localP, [0, 0.1, 0.2], [1, 0.6, 0]);
+  const scrollHintOpacity = useTransform(localP, [0, 0.08, 0.18], [1, 0.7, 0]);
+
 
   return (
     <section ref={sectionRef} className="relative h-[220vh]">
@@ -345,21 +356,28 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
 function WaliyaPage() {
   const rootRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: rootRef, offset: ["start start", "end end"] });
+  // Softer, more cinematic spring — reduces jitter and eases scroll-linked motion.
   const progress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 30,
-    mass: 0.6,
+    stiffness: 55,
+    damping: 26,
+    mass: 0.9,
+    restDelta: 0.0005,
   });
 
-  // Particle opacity strong during forge, fades later
+  // Particle opacity: dense during forge, whisper during body, resurge in finale.
   const particleOpacity = useTransform(
     progress,
-    [0, 0.05, 0.18, 0.22, 0.85, 0.95],
-    [1, 0.9, 0.4, 0.15, 0.15, 0.5],
+    [0, 0.04, 0.12, 0.22, 0.4, 0.82, 0.94, 1],
+    [1, 0.95, 0.6, 0.2, 0.12, 0.15, 0.55, 0.8],
   );
 
-  // Background fog wash
-  const fogOpacity = useTransform(progress, [0, 0.2, 0.4, 0.7, 1], [0, 0.4, 0.6, 0.5, 0.2]);
+  // Background fog — eased in/out with more stops for smoother wash.
+  const fogOpacity = useTransform(
+    progress,
+    [0, 0.15, 0.32, 0.55, 0.75, 0.92, 1],
+    [0, 0.35, 0.55, 0.6, 0.5, 0.3, 0.15],
+  );
+
 
 
 
