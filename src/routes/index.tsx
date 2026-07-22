@@ -361,10 +361,8 @@ function WaliyaPage() {
   // Background fog wash
   const fogOpacity = useTransform(progress, [0, 0.2, 0.4, 0.7, 1], [0, 0.4, 0.6, 0.5, 0.2]);
 
-  // Hero text lives inside the intro section (sticky-contained).
-  // Fades in during Stage 4 and out well before Heritage starts.
-  const heroOpacity = useTransform(progress, [0.16, 0.20, 0.24, 0.28], [0, 1, 1, 0]);
-  const heroY = useTransform(progress, [0.16, 0.22], [40, 0]);
+
+
 
   return (
     <div ref={rootRef} className="relative grain vignette bg-background">
