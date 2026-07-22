@@ -460,7 +460,7 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  COLLECTION — museum exhibits                                */}
       {/* ============================================================ */}
-      <section className="relative z-[15] py-40">
+      <section className="relative z-[15] bg-background py-24 md:py-40">
         <Reveal className="mx-auto max-w-6xl px-6 md:px-14">
           <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
             II · The Collection
