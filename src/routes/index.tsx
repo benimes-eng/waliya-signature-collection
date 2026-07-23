@@ -100,20 +100,21 @@ function IbexLayer({ progress }: { progress: MotionValue<number> }) {
   // Curves shaped with multi-stop interpolation to emulate cubic-bezier(0.22,1,0.36,1).
   const opacity = useTransform(
     progress,
-    [0, 0.03, 0.07, 0.14, 0.19, 0.24, 0.86, 0.92, 0.97, 1],
-    [0, 0.35, 0.85, 1, 1, 0, 0, 0.4, 0.9, 1],
+    [0, 0.04, 0.10, 0.20, 0.30, 0.36, 0.86, 0.92, 0.97, 1],
+    [0, 0.3, 0.85, 1, 1, 0, 0, 0.4, 0.9, 1],
   );
   const scale = useTransform(
     progress,
-    [0, 0.05, 0.1, 0.16, 0.22, 0.86, 0.94, 1],
-    [0.62, 0.86, 0.98, 1.01, 0.9, 0.78, 0.9, 1],
+    [0, 0.06, 0.12, 0.22, 0.34, 0.86, 0.94, 1],
+    [0.6, 0.85, 0.99, 1.02, 0.92, 0.78, 0.9, 1],
   );
   const blur = useTransform(
     progress,
-    [0, 0.04, 0.09, 0.16, 0.22, 0.86, 0.94, 1],
-    [40, 14, 2, 0, 12, 10, 3, 0],
+    [0, 0.05, 0.11, 0.22, 0.34, 0.86, 0.94, 1],
+    [40, 12, 1, 0, 10, 10, 3, 0],
   );
   const rotate = useTransform(progress, [0, 0.5, 1], [-1.4, 0, 1.4]);
+
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
 
 
@@ -280,37 +281,39 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
     offset: ["start start", "end end"],
   });
 
-  // Cinematic timing: Ibex has the stage first (0–0.35), hero rises (0.35–0.55),
-  // holds (0.55–0.78), then eases out (0.78–0.92) leaving breathing room before Heritage.
+  // Cinematic sequence:
+  //  • 0.00 – 0.36 : Ibex forges in, holds the stage alone.
+  //  • 0.40 – 0.55 : Title rises from below with easing.
+  //  • 0.58 – 0.68 : Sub-copy fades in.
+  //  • 0.66 – 0.76 : Explore button emerges softly.
+  //  • 0.80 – 0.92 : Whole hero eases out before Heritage.
   const heroOpacity = useTransform(
     localP,
-    [0.32, 0.42, 0.5, 0.78, 0.86, 0.92],
-    [0, 0.35, 1, 1, 0.4, 0],
+    [0.36, 0.5, 0.62, 0.78, 0.86, 0.92],
+    [0, 0.55, 1, 1, 0.35, 0],
   );
-  const heroY = useTransform(
-    localP,
-    [0.32, 0.5, 0.78, 0.92],
-    [70, 0, -4, -40],
-  );
-  const heroScale = useTransform(
-    localP,
-    [0.32, 0.5, 0.78, 0.92],
-    [0.94, 1, 1.015, 1.04],
-  );
+  const heroY = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [80, 0, -6, -40]);
+  const heroScale = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [0.94, 1, 1.015, 1.04]);
+
+  const titleOpacity = useTransform(localP, [0.4, 0.55], [0, 1]);
+  const titleY = useTransform(localP, [0.4, 0.55], [40, 0]);
+  const subOpacity = useTransform(localP, [0.55, 0.68], [0, 1]);
+  const subY = useTransform(localP, [0.55, 0.68], [26, 0]);
+  const ctaOpacity = useTransform(localP, [0.66, 0.78], [0, 1]);
+  const ctaY = useTransform(localP, [0.66, 0.78], [26, 0]);
 
   // Floating luxe items — smoother in/out with easing stops.
   const luxeOpacity = useTransform(
     localP,
-    [0, 0.08, 0.18, 0.8, 0.9, 1],
+    [0, 0.08, 0.22, 0.8, 0.9, 1],
     [0, 0.5, 1, 1, 0.4, 0],
   );
   const luxeParallax = useTransform(localP, [0, 1], [40, -160]);
 
-  const scrollHintOpacity = useTransform(localP, [0, 0.08, 0.18], [1, 0.7, 0]);
-
+  const scrollHintOpacity = useTransform(localP, [0, 0.08, 0.22], [1, 0.7, 0]);
 
   return (
-    <section ref={sectionRef} className="relative h-[220vh]">
+    <section ref={sectionRef} className="relative h-[260vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <FloatingLuxe opacity={luxeOpacity} parallaxY={luxeParallax} />
 
@@ -326,28 +329,45 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
           className="absolute inset-0 z-[20] flex items-center justify-center"
         >
           <div className="flex flex-col items-center px-6 text-center">
-            <span className="tracking-luxe mb-6 text-[0.6rem] text-[color:var(--bronze)] md:mb-8 md:text-[0.65rem]">
+            <motion.span
+              style={{ opacity: titleOpacity, y: titleY }}
+              className="tracking-luxe mb-6 text-[0.6rem] text-[color:var(--bronze)] md:mb-8 md:text-[0.65rem]"
+            >
               A House Forged in Altitude
-            </span>
-            <h1 className="font-serif text-[clamp(3.5rem,14vw,13rem)] leading-[0.9] text-chrome">
+            </motion.span>
+            <motion.h1
+              style={{ opacity: titleOpacity, y: titleY }}
+              className="font-serif text-[clamp(3.5rem,14vw,13rem)] leading-[0.9] text-chrome"
+            >
               WALIYA
-            </h1>
-            <div className="hairline my-8 w-32 md:my-10 md:w-40" />
-            <p className="font-serif max-w-xl text-[clamp(1rem,2vw,1.8rem)] text-[color:var(--chrome)]/85">
+            </motion.h1>
+            <motion.div
+              style={{ opacity: subOpacity }}
+              className="hairline my-8 w-32 md:my-10 md:w-40"
+            />
+            <motion.p
+              style={{ opacity: subOpacity, y: subY }}
+              className="font-serif max-w-xl text-[clamp(1rem,2vw,1.8rem)] text-[color:var(--chrome)]/85"
+            >
               Forged Above.
               <br />
               Crafted Beyond Trends.
-            </p>
-            <button className="btn-luxe mt-10 md:mt-14">
+            </motion.p>
+            <motion.a
+              href="/collection"
+              style={{ opacity: ctaOpacity, y: ctaY }}
+              className="btn-luxe mt-10 md:mt-14"
+            >
               <span className="dot" />
               Explore Collection
-            </button>
+            </motion.a>
           </div>
         </motion.div>
       </div>
     </section>
   );
 }
+
 
 
 /* ------------------------------------------------------------------ */
