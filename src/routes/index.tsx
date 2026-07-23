@@ -579,24 +579,18 @@ function WaliyaPage() {
             </p>
           </Reveal>
           <Reveal delay={0.45}>
-            <button className="btn-luxe mt-16">
+            <a href="/collection" className="btn-luxe mt-16">
               <span className="dot" />
               Explore the Collection
-            </button>
-          </Reveal>
-          <Reveal delay={0.7}>
-            <div className="mt-28 flex items-center gap-6 text-[0.6rem]">
-              <span className="tracking-luxe text-[color:var(--steel)]">
-                © Waliya Atelier
-              </span>
-              <span className="h-3 w-px bg-[color:var(--steel)]/40" />
-              <span className="tracking-luxe text-[color:var(--steel)]">
-                Addis Ababa · The World
-              </span>
-            </div>
+            </a>
           </Reveal>
         </div>
       </section>
+      <SiteFooter />
+    </div>
+  );
+}
+
     </div>
   );
 }
