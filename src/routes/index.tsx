@@ -591,9 +591,7 @@ function WaliyaPage() {
   );
 }
 
-    </div>
-  );
-}
+
 
 /* ------------------------------------------------------------------ */
 /*  Exhibit — scroll-driven parallax + camera zoom on image           */
