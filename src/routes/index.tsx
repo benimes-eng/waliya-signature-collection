@@ -14,6 +14,8 @@ import mountainsSrc from "../assets/mountains.jpg";
 import piece01 from "../assets/piece-01.jpg";
 import piece02 from "../assets/piece-02.jpg";
 import piece03 from "../assets/piece-03.jpg";
+import { SiteHeader, SiteFooter } from "../components/SiteChrome";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -423,15 +425,8 @@ function WaliyaPage() {
       <Particles opacity={particleOpacity} />
       <IbexLayer progress={progress} />
 
-      {/* Fixed brand mark */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-[50] flex items-center justify-between px-6 py-5 md:px-14 md:py-6">
-        <span className="tracking-luxe text-[0.6rem] text-chrome md:text-[0.65rem]">
-          Waliya
-        </span>
-        <span className="tracking-luxe text-[0.6rem] text-[color:var(--steel)] md:text-[0.65rem]">
-          Est. Ethiopia
-        </span>
-      </div>
+      <SiteHeader />
+
 
       {/* ============================================================ */}
       {/*  STAGE 1–4 — Cinematic Introduction (self-contained sticky)  */}
