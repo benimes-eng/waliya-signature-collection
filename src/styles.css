@@ -240,3 +240,16 @@ body {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Custom cursor */
+html.has-custom-cursor,
+html.has-custom-cursor body,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* Silky scroll */
+html {
+  scroll-behavior: smooth;
+}
+

@@ -1,0 +1,134 @@
+import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+
+const NAV = [
+  { to: "/", label: "Home" },
+  { to: "/collection", label: "Collection" },
+  { to: "/heritage", label: "Heritage" },
+  { to: "/atelier", label: "Atelier" },
+  { to: "/journal", label: "Journal" },
+  { to: "/contact", label: "Contact" },
+] as const;
+
+export function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  return (
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-6 py-5 md:px-14 md:py-6">
+      <Link
+        to="/"
+        className="tracking-luxe pointer-events-auto text-[0.6rem] text-chrome md:text-[0.7rem]"
+      >
+        Waliya
+      </Link>
+      <nav className="pointer-events-auto hidden items-center gap-8 md:flex">
+        {NAV.slice(1).map((n) => (
+          <Link
+            key={n.to}
+            to={n.to}
+            className="tracking-luxe text-[0.62rem] text-[color:var(--steel)] transition-colors hover:text-chrome"
+            activeProps={{ className: "tracking-luxe text-[0.62rem] text-chrome" }}
+          >
+            {n.label}
+          </Link>
+        ))}
+      </nav>
+      <button
+        aria-label="Menu"
+        onClick={() => setOpen((v) => !v)}
+        className="pointer-events-auto tracking-luxe text-[0.6rem] text-chrome md:hidden"
+      >
+        {open ? "Close" : "Menu"}
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="pointer-events-auto fixed inset-0 z-[70] flex flex-col items-center justify-center gap-8 bg-background/95 backdrop-blur-md md:hidden"
+          >
+            {NAV.map((n) => (
+              <Link
+                key={n.to}
+                to={n.to}
+                onClick={() => setOpen(false)}
+                className="font-serif text-4xl text-chrome"
+              >
+                {n.label}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
+
+export function SiteFooter() {
+  return (
+    <footer className="relative z-[15] border-t border-[color:var(--border)] bg-background px-6 py-14 md:px-14">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 md:flex-row">
+        <span className="tracking-luxe text-[0.6rem] text-chrome">Waliya · Est. Ethiopia</span>
+        <div className="flex flex-wrap items-center justify-center gap-6">
+          {NAV.map((n) => (
+            <Link
+              key={n.to}
+              to={n.to}
+              className="tracking-luxe text-[0.6rem] text-[color:var(--steel)] hover:text-chrome"
+            >
+              {n.label}
+            </Link>
+          ))}
+        </div>
+        <span className="tracking-luxe text-[0.6rem] text-[color:var(--steel)]">
+          © {new Date().getFullYear()} Waliya Atelier
+        </span>
+      </div>
+    </footer>
+  );
+}
+
+export function PageShell({
+  eyebrow,
+  title,
+  intro,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="relative min-h-screen bg-background grain vignette">
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_center,#0a0a0a_0%,#050505_60%,#000_100%)]" />
+      <SiteHeader />
+      <main className="relative z-[15] px-6 pb-24 pt-40 md:px-14 md:pt-52">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto max-w-6xl"
+        >
+          <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
+            {eyebrow}
+          </span>
+          <h1 className="font-serif mt-8 text-[clamp(2.75rem,9vw,7rem)] leading-[0.95] text-chrome">
+            {title}
+          </h1>
+          {intro && (
+            <>
+              <div className="hairline my-10 w-32" />
+              <p className="font-serif max-w-2xl text-[clamp(1.05rem,1.6vw,1.5rem)] leading-relaxed text-[color:var(--chrome)]/80">
+                {intro}
+              </p>
+            </>
+          )}
+        </motion.div>
+        <div className="mx-auto mt-20 max-w-6xl">{children}</div>
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
