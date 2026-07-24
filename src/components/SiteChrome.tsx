@@ -24,35 +24,6 @@ export function SiteHeader() {
   );
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-6 py-5 md:px-14 md:py-6">
-      <Link
-        to="/"
-        className="tracking-luxe pointer-events-auto text-[0.6rem] text-chrome md:text-[0.7rem]"
-      >
-        Waliya
-      </Link>
-      <nav className="pointer-events-auto hidden items-center gap-8 md:flex">
-        {NAV.slice(1).map((n) => (
-          <Link
-            key={n.to}
-            to={n.to}
-            className="tracking-luxe text-[0.62rem] text-[color:var(--steel)] transition-colors hover:text-chrome"
-            activeProps={{ className: "tracking-luxe text-[0.62rem] text-chrome" }}
-          >
-            {n.label}
-          </Link>
-        ))}
-      </nav>
-      <button
-        aria-label="Menu"
-        onClick={() => setOpen((v) => !v)}
-        className="pointer-events-auto tracking-luxe text-[0.6rem] text-chrome md:hidden"
-      >
-        {open ? "Close" : "Menu"}
-      </button>
-      <AnimatePresence>
-  return (
     <motion.header
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
