@@ -52,27 +52,68 @@ export function SiteHeader() {
         {open ? "Close" : "Menu"}
       </button>
       <AnimatePresence>
+  return (
+    <motion.header
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+      style={{ backgroundColor: mounted ? bg : undefined, backdropFilter: mounted ? blur : undefined, borderBottom: "1px solid", borderColor: mounted ? borderColor : "transparent" }}
+      className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-6 py-5 md:px-14 md:py-6"
+    >
+      <Link
+        to="/"
+        className="tracking-luxe pointer-events-auto text-[0.6rem] text-chrome md:text-[0.7rem] transition-opacity hover:opacity-70"
+      >
+        Waliya
+      </Link>
+      <nav className="pointer-events-auto hidden items-center gap-7 md:flex">
+        {NAV.slice(1).map((n) => (
+          <Link
+            key={n.to}
+            to={n.to}
+            className="tracking-luxe relative text-[0.62rem] text-[color:var(--steel)] transition-colors duration-500 hover:text-chrome"
+            activeProps={{ className: "tracking-luxe relative text-[0.62rem] text-chrome" }}
+          >
+            {n.label}
+          </Link>
+        ))}
+      </nav>
+      <button
+        aria-label="Menu"
+        onClick={() => setOpen((v) => !v)}
+        className="pointer-events-auto tracking-luxe text-[0.6rem] text-chrome md:hidden"
+      >
+        {open ? "Close" : "Menu"}
+      </button>
+      <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="pointer-events-auto fixed inset-0 z-[70] flex flex-col items-center justify-center gap-8 bg-background/95 backdrop-blur-md md:hidden"
           >
-            {NAV.map((n) => (
-              <Link
+            {NAV.map((n, i) => (
+              <motion.div
                 key={n.to}
-                to={n.to}
-                onClick={() => setOpen(false)}
-                className="font-serif text-4xl text-chrome"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               >
-                {n.label}
-              </Link>
+                <Link
+                  to={n.to}
+                  onClick={() => setOpen(false)}
+                  className="font-serif text-4xl text-chrome"
+                >
+                  {n.label}
+                </Link>
+              </motion.div>
             ))}
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }
 
