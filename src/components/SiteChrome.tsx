@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/collection", label: "Collection" },
+  { to: "/store", label: "Store" },
   { to: "/heritage", label: "Heritage" },
   { to: "/atelier", label: "Atelier" },
   { to: "/journal", label: "Journal" },
@@ -13,6 +14,16 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { scrollY } = useScroll();
+  const bg = useTransform(scrollY, [0, 120], ["rgba(5,5,5,0)", "rgba(5,5,5,0.72)"]);
+  const blur = useTransform(scrollY, [0, 120], ["blur(0px)", "blur(14px)"]);
+  const borderColor = useTransform(
+    scrollY,
+    [0, 120],
+    ["rgba(255,255,255,0)", "rgba(255,255,255,0.08)"]
+  );
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-6 py-5 md:px-14 md:py-6">
       <Link
