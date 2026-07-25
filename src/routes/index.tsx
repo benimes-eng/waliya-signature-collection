@@ -98,24 +98,24 @@ function Particles({ opacity }: { opacity: MotionValue<number> }) {
 /*  Fixed Ibex layer — the emotional anchor                           */
 /* ------------------------------------------------------------------ */
 function IbexLayer({ progress }: { progress: MotionValue<number> }) {
-  // Ibex forges in slowly, holds, recedes with easing; returns as a whisper in the finale.
-  // Curves shaped with multi-stop interpolation to emulate cubic-bezier(0.22,1,0.36,1).
+  // Ibex forges in, holds the intro, then fully clears well before Heritage.
+  // No reappearance from the fixed layer — the final CTA renders its own inline Ibex.
   const opacity = useTransform(
     progress,
-    [0, 0.04, 0.10, 0.20, 0.30, 0.36, 0.86, 0.92, 0.97, 1],
-    [0, 0.3, 0.85, 1, 1, 0, 0, 0.4, 0.9, 1],
+    [0, 0.03, 0.08, 0.16, 0.22, 0.28, 1],
+    [0, 0.35, 0.9, 1, 0.6, 0, 0],
   );
   const scale = useTransform(
     progress,
-    [0, 0.06, 0.12, 0.22, 0.34, 0.86, 0.94, 1],
-    [0.6, 0.85, 0.99, 1.02, 0.92, 0.78, 0.9, 1],
+    [0, 0.05, 0.12, 0.2, 0.28, 1],
+    [0.62, 0.88, 1, 1.02, 0.9, 0.9],
   );
   const blur = useTransform(
     progress,
-    [0, 0.05, 0.11, 0.22, 0.34, 0.86, 0.94, 1],
-    [40, 12, 1, 0, 10, 10, 3, 0],
+    [0, 0.04, 0.1, 0.2, 0.28, 1],
+    [42, 14, 1, 0, 12, 12],
   );
-  const rotate = useTransform(progress, [0, 0.5, 1], [-1.4, 0, 1.4]);
+  const rotate = useTransform(progress, [0, 0.28], [-1.4, 0.6]);
 
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
 
@@ -283,34 +283,34 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
     offset: ["start start", "end end"],
   });
 
-  // Cinematic sequence:
-  //  • 0.00 – 0.36 : Ibex forges in, holds the stage alone.
-  //  • 0.40 – 0.55 : Title rises from below with easing.
-  //  • 0.58 – 0.68 : Sub-copy fades in.
-  //  • 0.66 – 0.76 : Explore button emerges softly.
-  //  • 0.80 – 0.92 : Whole hero eases out before Heritage.
+  // Cinematic sequence — softer, longer easings for a silkier reveal:
+  //  • 0.00 – 0.30 : Ibex forges in, holds the stage alone.
+  //  • 0.30 – 0.48 : Title rises from below.
+  //  • 0.44 – 0.60 : Sub-copy fades in.
+  //  • 0.56 – 0.72 : Explore button emerges.
+  //  • 0.78 – 0.96 : Whole hero eases out cleanly before Heritage.
   const heroOpacity = useTransform(
     localP,
-    [0.36, 0.5, 0.62, 0.78, 0.86, 0.92],
-    [0, 0.55, 1, 1, 0.35, 0],
+    [0.28, 0.42, 0.58, 0.78, 0.9, 0.98],
+    [0, 0.6, 1, 1, 0.3, 0],
   );
-  const heroY = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [80, 0, -6, -40]);
-  const heroScale = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [0.94, 1, 1.015, 1.04]);
+  const heroY = useTransform(localP, [0.28, 0.5, 0.78, 0.98], [90, 0, -8, -60]);
+  const heroScale = useTransform(localP, [0.28, 0.5, 0.78, 0.98], [0.93, 1, 1.02, 1.06]);
 
-  const titleOpacity = useTransform(localP, [0.4, 0.55], [0, 1]);
-  const titleY = useTransform(localP, [0.4, 0.55], [40, 0]);
-  const subOpacity = useTransform(localP, [0.55, 0.68], [0, 1]);
-  const subY = useTransform(localP, [0.55, 0.68], [26, 0]);
-  const ctaOpacity = useTransform(localP, [0.66, 0.78], [0, 1]);
-  const ctaY = useTransform(localP, [0.66, 0.78], [26, 0]);
+  const titleOpacity = useTransform(localP, [0.3, 0.48], [0, 1]);
+  const titleY = useTransform(localP, [0.3, 0.48], [50, 0]);
+  const subOpacity = useTransform(localP, [0.44, 0.6], [0, 1]);
+  const subY = useTransform(localP, [0.44, 0.6], [30, 0]);
+  const ctaOpacity = useTransform(localP, [0.56, 0.72], [0, 1]);
+  const ctaY = useTransform(localP, [0.56, 0.72], [30, 0]);
 
-  // Floating luxe items — smoother in/out with easing stops.
+  // Floating luxe items — smoother in/out.
   const luxeOpacity = useTransform(
     localP,
-    [0, 0.08, 0.22, 0.8, 0.9, 1],
-    [0, 0.5, 1, 1, 0.4, 0],
+    [0, 0.08, 0.22, 0.75, 0.88, 1],
+    [0, 0.5, 1, 1, 0.35, 0],
   );
-  const luxeParallax = useTransform(localP, [0, 1], [40, -160]);
+  const luxeParallax = useTransform(localP, [0, 1], [40, -180]);
 
   const scrollHintOpacity = useTransform(localP, [0, 0.08, 0.22], [1, 0.7, 0]);
 
@@ -380,9 +380,9 @@ function WaliyaPage() {
   const { scrollYProgress } = useScroll({ target: rootRef, offset: ["start start", "end end"] });
   // Softer, more cinematic spring — reduces jitter and eases scroll-linked motion.
   const progress = useSpring(scrollYProgress, {
-    stiffness: 55,
-    damping: 26,
-    mass: 0.9,
+    stiffness: 42,
+    damping: 24,
+    mass: 1,
     restDelta: 0.0005,
   });
 
@@ -561,8 +561,31 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  FINAL CTA                                                   */}
       {/* ============================================================ */}
-      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center bg-background px-6 py-24">
-        <div className="flex flex-col items-center text-center">
+      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center overflow-hidden bg-background px-6 py-24">
+        {/* Ibex watermark background */}
+        <motion.img
+          src={ibexSrc}
+          alt=""
+          aria-hidden
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 0.22, scale: 1 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[85vh] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 select-none"
+          style={{
+            filter:
+              "drop-shadow(0 30px 80px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(176,133,88,0.18))",
+          }}
+          draggable={false}
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(5,5,5,0) 0%, rgba(5,5,5,0.55) 55%, rgba(5,5,5,0.95) 100%)",
+          }}
+        />
+        <div className="relative flex flex-col items-center text-center">
           <Reveal>
             <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
               Wear the Peak
