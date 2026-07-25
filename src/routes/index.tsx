@@ -291,23 +291,23 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
   //  • 0.80 – 0.92 : Whole hero eases out before Heritage.
   const heroOpacity = useTransform(
     localP,
-    [0.14, 0.28, 0.7, 0.85],
-    [0, 1, 1, 0],
+    [0.36, 0.5, 0.62, 0.78, 0.86, 0.92],
+    [0, 0.55, 1, 1, 0.35, 0],
   );
-  const heroY = useTransform(localP, [0.14, 0.28, 0.7, 0.85], [40, 0, 0, -30]);
-  const heroScale = useTransform(localP, [0.14, 0.28, 0.7, 0.85], [0.97, 1, 1.01, 1.03]);
+  const heroY = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [80, 0, -6, -40]);
+  const heroScale = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [0.94, 1, 1.015, 1.04]);
 
-  const titleOpacity = useTransform(localP, [0.16, 0.3], [0, 1]);
-  const titleY = useTransform(localP, [0.16, 0.3], [30, 0]);
-  const subOpacity = useTransform(localP, [0.28, 0.4], [0, 1]);
-  const subY = useTransform(localP, [0.28, 0.4], [20, 0]);
-  const ctaOpacity = useTransform(localP, [0.36, 0.48], [0, 1]);
-  const ctaY = useTransform(localP, [0.36, 0.48], [20, 0]);
+  const titleOpacity = useTransform(localP, [0.4, 0.55], [0, 1]);
+  const titleY = useTransform(localP, [0.4, 0.55], [40, 0]);
+  const subOpacity = useTransform(localP, [0.55, 0.68], [0, 1]);
+  const subY = useTransform(localP, [0.55, 0.68], [26, 0]);
+  const ctaOpacity = useTransform(localP, [0.66, 0.78], [0, 1]);
+  const ctaY = useTransform(localP, [0.66, 0.78], [26, 0]);
 
   // Floating luxe items — smoother in/out with easing stops.
   const luxeOpacity = useTransform(
     localP,
-    [0, 0.08, 0.22, 0.72, 0.85, 1],
+    [0, 0.08, 0.22, 0.8, 0.9, 1],
     [0, 0.5, 1, 1, 0.4, 0],
   );
   const luxeParallax = useTransform(localP, [0, 1], [40, -160]);
@@ -315,9 +315,8 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
   const scrollHintOpacity = useTransform(localP, [0, 0.08, 0.22], [1, 0.7, 0]);
 
   return (
-    <section ref={sectionRef} className="relative h-[170vh]">
+    <section ref={sectionRef} className="relative h-[260vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-
         <FloatingLuxe opacity={luxeOpacity} parallaxY={luxeParallax} />
 
         <motion.div
@@ -448,15 +447,15 @@ function WaliyaPage() {
           className="topo pointer-events-none absolute inset-0 opacity-70"
           aria-hidden
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45vh] overflow-hidden opacity-60">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45vh] overflow-hidden opacity-30">
           <img
             src={mountainsSrc}
             alt=""
             className="h-full w-full object-cover"
-            style={{ filter: "contrast(1.05) brightness(0.75) saturate(0.9)" }}
+            style={{ filter: "grayscale(1) contrast(1.2) brightness(0.35)" }}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
         </div>
 
         <div className="relative mx-auto flex min-h-[140vh] max-w-6xl flex-col justify-center py-24 md:py-40">
@@ -562,28 +561,8 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  FINAL CTA                                                   */}
       {/* ============================================================ */}
-      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center overflow-hidden bg-background px-6 py-24">
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-25">
-          <img
-            src={ibexSrc}
-            alt=""
-            className="h-[85vh] w-auto max-w-none select-none"
-            style={{
-              filter:
-                "drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(176,133,88,0.25))",
-            }}
-            loading="lazy"
-            draggable={false}
-          />
-        </div>
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, transparent 30%, rgba(5,5,5,0.85) 75%)",
-          }}
-        />
-        <div className="relative flex flex-col items-center text-center">
+      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center bg-background px-6 py-24">
+        <div className="flex flex-col items-center text-center">
           <Reveal>
             <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
               Wear the Peak
