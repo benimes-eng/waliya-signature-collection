@@ -448,15 +448,15 @@ function WaliyaPage() {
           className="topo pointer-events-none absolute inset-0 opacity-70"
           aria-hidden
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45vh] overflow-hidden opacity-30">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45vh] overflow-hidden opacity-60">
           <img
             src={mountainsSrc}
             alt=""
             className="h-full w-full object-cover"
-            style={{ filter: "grayscale(1) contrast(1.2) brightness(0.35)" }}
+            style={{ filter: "contrast(1.05) brightness(0.75) saturate(0.9)" }}
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background" />
         </div>
 
         <div className="relative mx-auto flex min-h-[140vh] max-w-6xl flex-col justify-center py-24 md:py-40">
