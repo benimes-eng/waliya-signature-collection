@@ -562,8 +562,28 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  FINAL CTA                                                   */}
       {/* ============================================================ */}
-      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center bg-background px-6 py-24">
-        <div className="flex flex-col items-center text-center">
+      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center overflow-hidden bg-background px-6 py-24">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-25">
+          <img
+            src={ibexSrc}
+            alt=""
+            className="h-[85vh] w-auto max-w-none select-none"
+            style={{
+              filter:
+                "drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(176,133,88,0.25))",
+            }}
+            loading="lazy"
+            draggable={false}
+          />
+        </div>
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 30%, rgba(5,5,5,0.85) 75%)",
+          }}
+        />
+        <div className="relative flex flex-col items-center text-center">
           <Reveal>
             <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
               Wear the Peak
