@@ -283,34 +283,34 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
     offset: ["start start", "end end"],
   });
 
-  // Cinematic sequence:
-  //  • 0.00 – 0.36 : Ibex forges in, holds the stage alone.
-  //  • 0.40 – 0.55 : Title rises from below with easing.
-  //  • 0.58 – 0.68 : Sub-copy fades in.
-  //  • 0.66 – 0.76 : Explore button emerges softly.
-  //  • 0.80 – 0.92 : Whole hero eases out before Heritage.
+  // Cinematic sequence — softer, longer easings for a silkier reveal:
+  //  • 0.00 – 0.30 : Ibex forges in, holds the stage alone.
+  //  • 0.30 – 0.48 : Title rises from below.
+  //  • 0.44 – 0.60 : Sub-copy fades in.
+  //  • 0.56 – 0.72 : Explore button emerges.
+  //  • 0.78 – 0.96 : Whole hero eases out cleanly before Heritage.
   const heroOpacity = useTransform(
     localP,
-    [0.36, 0.5, 0.62, 0.78, 0.86, 0.92],
-    [0, 0.55, 1, 1, 0.35, 0],
+    [0.28, 0.42, 0.58, 0.78, 0.9, 0.98],
+    [0, 0.6, 1, 1, 0.3, 0],
   );
-  const heroY = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [80, 0, -6, -40]);
-  const heroScale = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [0.94, 1, 1.015, 1.04]);
+  const heroY = useTransform(localP, [0.28, 0.5, 0.78, 0.98], [90, 0, -8, -60]);
+  const heroScale = useTransform(localP, [0.28, 0.5, 0.78, 0.98], [0.93, 1, 1.02, 1.06]);
 
-  const titleOpacity = useTransform(localP, [0.4, 0.55], [0, 1]);
-  const titleY = useTransform(localP, [0.4, 0.55], [40, 0]);
-  const subOpacity = useTransform(localP, [0.55, 0.68], [0, 1]);
-  const subY = useTransform(localP, [0.55, 0.68], [26, 0]);
-  const ctaOpacity = useTransform(localP, [0.66, 0.78], [0, 1]);
-  const ctaY = useTransform(localP, [0.66, 0.78], [26, 0]);
+  const titleOpacity = useTransform(localP, [0.3, 0.48], [0, 1]);
+  const titleY = useTransform(localP, [0.3, 0.48], [50, 0]);
+  const subOpacity = useTransform(localP, [0.44, 0.6], [0, 1]);
+  const subY = useTransform(localP, [0.44, 0.6], [30, 0]);
+  const ctaOpacity = useTransform(localP, [0.56, 0.72], [0, 1]);
+  const ctaY = useTransform(localP, [0.56, 0.72], [30, 0]);
 
-  // Floating luxe items — smoother in/out with easing stops.
+  // Floating luxe items — smoother in/out.
   const luxeOpacity = useTransform(
     localP,
-    [0, 0.08, 0.22, 0.8, 0.9, 1],
-    [0, 0.5, 1, 1, 0.4, 0],
+    [0, 0.08, 0.22, 0.75, 0.88, 1],
+    [0, 0.5, 1, 1, 0.35, 0],
   );
-  const luxeParallax = useTransform(localP, [0, 1], [40, -160]);
+  const luxeParallax = useTransform(localP, [0, 1], [40, -180]);
 
   const scrollHintOpacity = useTransform(localP, [0, 0.08, 0.22], [1, 0.7, 0]);
 
