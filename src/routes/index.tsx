@@ -380,9 +380,9 @@ function WaliyaPage() {
   const { scrollYProgress } = useScroll({ target: rootRef, offset: ["start start", "end end"] });
   // Softer, more cinematic spring — reduces jitter and eases scroll-linked motion.
   const progress = useSpring(scrollYProgress, {
-    stiffness: 55,
-    damping: 26,
-    mass: 0.9,
+    stiffness: 42,
+    damping: 24,
+    mass: 1,
     restDelta: 0.0005,
   });
 
