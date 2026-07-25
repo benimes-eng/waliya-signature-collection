@@ -4,11 +4,10 @@ import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 
 const NAV = [
   { to: "/", label: "Home" },
-  { to: "/collection", label: "Collection" },
-  { to: "/store", label: "Store" },
   { to: "/heritage", label: "Heritage" },
   { to: "/atelier", label: "Atelier" },
   { to: "/journal", label: "Journal" },
+  { to: "/store", label: "Store" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
