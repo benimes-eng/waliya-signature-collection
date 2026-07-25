@@ -291,23 +291,23 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
   //  • 0.80 – 0.92 : Whole hero eases out before Heritage.
   const heroOpacity = useTransform(
     localP,
-    [0.36, 0.5, 0.62, 0.78, 0.86, 0.92],
-    [0, 0.55, 1, 1, 0.35, 0],
+    [0.14, 0.28, 0.7, 0.85],
+    [0, 1, 1, 0],
   );
-  const heroY = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [80, 0, -6, -40]);
-  const heroScale = useTransform(localP, [0.36, 0.55, 0.78, 0.92], [0.94, 1, 1.015, 1.04]);
+  const heroY = useTransform(localP, [0.14, 0.28, 0.7, 0.85], [40, 0, 0, -30]);
+  const heroScale = useTransform(localP, [0.14, 0.28, 0.7, 0.85], [0.97, 1, 1.01, 1.03]);
 
-  const titleOpacity = useTransform(localP, [0.4, 0.55], [0, 1]);
-  const titleY = useTransform(localP, [0.4, 0.55], [40, 0]);
-  const subOpacity = useTransform(localP, [0.55, 0.68], [0, 1]);
-  const subY = useTransform(localP, [0.55, 0.68], [26, 0]);
-  const ctaOpacity = useTransform(localP, [0.66, 0.78], [0, 1]);
-  const ctaY = useTransform(localP, [0.66, 0.78], [26, 0]);
+  const titleOpacity = useTransform(localP, [0.16, 0.3], [0, 1]);
+  const titleY = useTransform(localP, [0.16, 0.3], [30, 0]);
+  const subOpacity = useTransform(localP, [0.28, 0.4], [0, 1]);
+  const subY = useTransform(localP, [0.28, 0.4], [20, 0]);
+  const ctaOpacity = useTransform(localP, [0.36, 0.48], [0, 1]);
+  const ctaY = useTransform(localP, [0.36, 0.48], [20, 0]);
 
   // Floating luxe items — smoother in/out with easing stops.
   const luxeOpacity = useTransform(
     localP,
-    [0, 0.08, 0.22, 0.8, 0.9, 1],
+    [0, 0.08, 0.22, 0.72, 0.85, 1],
     [0, 0.5, 1, 1, 0.4, 0],
   );
   const luxeParallax = useTransform(localP, [0, 1], [40, -160]);
@@ -315,8 +315,9 @@ function IntroStage({ progress }: { progress: MotionValue<number> }) {
   const scrollHintOpacity = useTransform(localP, [0, 0.08, 0.22], [1, 0.7, 0]);
 
   return (
-    <section ref={sectionRef} className="relative h-[260vh]">
+    <section ref={sectionRef} className="relative h-[170vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
+
         <FloatingLuxe opacity={luxeOpacity} parallaxY={luxeParallax} />
 
         <motion.div
