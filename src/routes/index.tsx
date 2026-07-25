@@ -98,24 +98,24 @@ function Particles({ opacity }: { opacity: MotionValue<number> }) {
 /*  Fixed Ibex layer — the emotional anchor                           */
 /* ------------------------------------------------------------------ */
 function IbexLayer({ progress }: { progress: MotionValue<number> }) {
-  // Ibex forges in slowly, holds, recedes with easing; returns as a whisper in the finale.
-  // Curves shaped with multi-stop interpolation to emulate cubic-bezier(0.22,1,0.36,1).
+  // Ibex forges in, holds the intro, then fully clears well before Heritage.
+  // No reappearance from the fixed layer — the final CTA renders its own inline Ibex.
   const opacity = useTransform(
     progress,
-    [0, 0.04, 0.10, 0.20, 0.30, 0.36, 0.86, 0.92, 0.97, 1],
-    [0, 0.3, 0.85, 1, 1, 0, 0, 0.4, 0.9, 1],
+    [0, 0.03, 0.08, 0.16, 0.22, 0.28, 1],
+    [0, 0.35, 0.9, 1, 0.6, 0, 0],
   );
   const scale = useTransform(
     progress,
-    [0, 0.06, 0.12, 0.22, 0.34, 0.86, 0.94, 1],
-    [0.6, 0.85, 0.99, 1.02, 0.92, 0.78, 0.9, 1],
+    [0, 0.05, 0.12, 0.2, 0.28, 1],
+    [0.62, 0.88, 1, 1.02, 0.9, 0.9],
   );
   const blur = useTransform(
     progress,
-    [0, 0.05, 0.11, 0.22, 0.34, 0.86, 0.94, 1],
-    [40, 12, 1, 0, 10, 10, 3, 0],
+    [0, 0.04, 0.1, 0.2, 0.28, 1],
+    [42, 14, 1, 0, 12, 12],
   );
-  const rotate = useTransform(progress, [0, 0.5, 1], [-1.4, 0, 1.4]);
+  const rotate = useTransform(progress, [0, 0.28], [-1.4, 0.6]);
 
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
 
