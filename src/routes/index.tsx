@@ -561,8 +561,31 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  FINAL CTA                                                   */}
       {/* ============================================================ */}
-      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center bg-background px-6 py-24">
-        <div className="flex flex-col items-center text-center">
+      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center overflow-hidden bg-background px-6 py-24">
+        {/* Ibex watermark background */}
+        <motion.img
+          src={ibexSrc}
+          alt=""
+          aria-hidden
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 0.22, scale: 1 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[85vh] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 select-none"
+          style={{
+            filter:
+              "drop-shadow(0 30px 80px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(176,133,88,0.18))",
+          }}
+          draggable={false}
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(5,5,5,0) 0%, rgba(5,5,5,0.55) 55%, rgba(5,5,5,0.95) 100%)",
+          }}
+        />
+        <div className="relative flex flex-col items-center text-center">
           <Reveal>
             <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
               Wear the Peak
