@@ -27,3 +27,14 @@ npm run dev
 - TypeScript
 - React
 - Tailwind CSS
+
+## Deploy to Netlify
+
+The repository is configured for Netlify SSR deployments. Connect the repository
+to Netlify and use the checked-in build settings:
+
+- Build command: `npm run build`
+- Publish directory: `dist/client`
+
+Netlify will install the dependencies from `bun.lock`, build the client assets,
+and deploy the generated SSR function automatically.
