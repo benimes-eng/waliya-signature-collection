@@ -159,7 +159,7 @@ function IbexLayer({ progress }: { progress: MotionValue<number> }) {
           <motion.img
             src={ibexSrc}
             alt="WALIYA Ibex emblem"
-            className="h-[52vh] w-auto max-w-none select-none sm:h-[68vh] md:h-[78vh]"
+            className="h-[46vh] w-auto max-w-[92vw] select-none sm:h-[68vh] sm:max-w-none md:h-[78vh]"
             style={{
               filter:
                 "drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 40px rgba(176,133,88,0.15))",
