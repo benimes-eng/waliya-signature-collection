@@ -8,8 +8,7 @@ import {
   useMotionValue,
   type MotionValue,
 } from "motion/react";
-import ibexAsset from "../assets/ibex.png.asset.json";
-const ibexSrc = ibexAsset.url;
+import ibexSrc from "../assets/ibex.png";
 import mountainsSrc from "../assets/mountains.jpg";
 import piece01 from "../assets/piece-01.jpg";
 import piece02 from "../assets/piece-02.jpg";
