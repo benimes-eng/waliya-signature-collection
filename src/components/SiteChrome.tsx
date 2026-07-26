@@ -29,11 +29,11 @@ export function SiteHeader() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
       style={{ backgroundColor: mounted ? bg : undefined, backdropFilter: mounted ? blur : undefined, borderBottom: "1px solid", borderColor: mounted ? borderColor : "transparent" }}
-      className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-6 py-5 md:px-14 md:py-6"
+      className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between gap-4 px-5 py-4 md:px-14 md:py-6"
     >
       <Link
         to="/"
-        className="tracking-luxe pointer-events-auto text-[0.6rem] text-chrome md:text-[0.7rem] transition-opacity hover:opacity-70"
+        className="tracking-luxe pointer-events-auto shrink-0 text-[0.6rem] text-chrome md:text-[0.7rem] transition-opacity hover:opacity-70"
       >
         Waliya
       </Link>
@@ -50,11 +50,22 @@ export function SiteHeader() {
         ))}
       </nav>
       <button
-        aria-label="Menu"
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="pointer-events-auto tracking-luxe text-[0.6rem] text-chrome md:hidden"
+        className="pointer-events-auto relative z-[110] flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[color:var(--border)] bg-black/40 backdrop-blur-md md:hidden"
       >
-        {open ? "Close" : "Menu"}
+        <span className="relative block h-3 w-5">
+          <span
+            className={`absolute left-0 top-0 h-px w-5 bg-chrome transition-transform duration-500 ${open ? "translate-y-[6px] rotate-45" : ""}`}
+          />
+          <span
+            className={`absolute left-0 top-[6px] h-px w-5 bg-chrome transition-transform duration-500 ${open ? "-rotate-45" : ""}`}
+          />
+          <span
+            className={`absolute left-0 top-[12px] h-px w-5 bg-chrome transition-opacity duration-300 ${open ? "opacity-0" : ""}`}
+          />
+        </span>
       </button>
       <AnimatePresence>
         {open && (
@@ -63,14 +74,15 @@ export function SiteHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto fixed inset-0 z-[70] flex flex-col items-center justify-center gap-8 bg-background/95 backdrop-blur-md md:hidden"
+            className="pointer-events-auto fixed inset-0 z-[100] flex flex-col items-center justify-center gap-7 bg-background/95 px-6 backdrop-blur-md md:hidden"
           >
             {NAV.map((n, i) => (
               <motion.div
                 key={n.to}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.6, delay: 0.08 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Link
                   to={n.to}
@@ -81,6 +93,14 @@ export function SiteHeader() {
                 </Link>
               </motion.div>
             ))}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="tracking-luxe absolute bottom-10 text-[0.55rem] text-[color:var(--steel)]"
+            >
+              Waliya · Atelier
+            </motion.span>
           </motion.div>
         )}
       </AnimatePresence>
