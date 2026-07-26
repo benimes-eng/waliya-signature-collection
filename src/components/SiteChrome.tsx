@@ -110,10 +110,10 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-[15] border-t border-[color:var(--border)] bg-background px-6 py-14 md:px-14">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 md:flex-row">
+    <footer className="relative z-[15] border-t border-[color:var(--border)] bg-background px-5 py-12 md:px-14 md:py-14">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left">
         <span className="tracking-luxe text-[0.6rem] text-chrome">Waliya · Est. Ethiopia</span>
-        <div className="flex flex-wrap items-center justify-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
           {NAV.map((n) => (
             <Link
               key={n.to}
