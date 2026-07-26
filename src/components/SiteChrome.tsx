@@ -74,7 +74,7 @@ export function SiteHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto fixed inset-0 z-[100] flex flex-col items-center justify-center gap-7 bg-background/95 px-6 backdrop-blur-md md:hidden"
+            className="pointer-events-auto fixed inset-0 z-[100] flex flex-col items-center justify-center gap-7 overflow-y-auto bg-background/95 px-6 py-24 backdrop-blur-md md:hidden"
           >
             {NAV.map((n, i) => (
               <motion.div
@@ -97,7 +97,7 @@ export function SiteHeader() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="tracking-luxe absolute bottom-10 text-[0.55rem] text-[color:var(--steel)]"
+              className="tracking-luxe mt-4 shrink-0 text-[0.55rem] text-[color:var(--steel)]"
             >
               Waliya · Atelier
             </motion.span>
