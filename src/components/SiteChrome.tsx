@@ -147,29 +147,29 @@ export function PageShell({
     <div className="relative min-h-screen bg-background grain vignette">
       <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_center,#0a0a0a_0%,#050505_60%,#000_100%)]" />
       <SiteHeader />
-      <main className="relative z-[15] px-6 pb-24 pt-40 md:px-14 md:pt-52">
+      <main className="relative z-[15] px-5 pb-20 pt-32 sm:px-8 sm:pt-40 md:px-14 md:pt-52 md:pb-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto max-w-6xl"
         >
-          <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
+          <span className="tracking-luxe text-[0.6rem] text-[color:var(--bronze)] md:text-[0.65rem]">
             {eyebrow}
           </span>
-          <h1 className="font-serif mt-8 text-[clamp(2.75rem,9vw,7rem)] leading-[0.95] text-chrome">
+          <h1 className="font-serif mt-6 break-words text-[clamp(2.25rem,9vw,7rem)] leading-[0.95] text-chrome md:mt-8">
             {title}
           </h1>
           {intro && (
             <>
-              <div className="hairline my-10 w-32" />
-              <p className="font-serif max-w-2xl text-[clamp(1.05rem,1.6vw,1.5rem)] leading-relaxed text-[color:var(--chrome)]/80">
+              <div className="hairline my-8 w-24 md:my-10 md:w-32" />
+              <p className="font-serif max-w-2xl text-[clamp(1rem,1.6vw,1.5rem)] leading-relaxed text-[color:var(--chrome)]/80">
                 {intro}
               </p>
             </>
           )}
         </motion.div>
-        <div className="mx-auto mt-20 max-w-6xl">{children}</div>
+        <div className="mx-auto mt-14 max-w-6xl md:mt-20">{children}</div>
       </main>
       <SiteFooter />
     </div>
