@@ -29,11 +29,11 @@ export function SiteHeader() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
       style={{ backgroundColor: mounted ? bg : undefined, backdropFilter: mounted ? blur : undefined, borderBottom: "1px solid", borderColor: mounted ? borderColor : "transparent" }}
-      className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-6 py-5 md:px-14 md:py-6"
+      className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between gap-4 px-5 py-4 md:px-14 md:py-6"
     >
       <Link
         to="/"
-        className="tracking-luxe pointer-events-auto text-[0.6rem] text-chrome md:text-[0.7rem] transition-opacity hover:opacity-70"
+        className="tracking-luxe pointer-events-auto shrink-0 text-[0.6rem] text-chrome md:text-[0.7rem] transition-opacity hover:opacity-70"
       >
         Waliya
       </Link>
@@ -50,11 +50,22 @@ export function SiteHeader() {
         ))}
       </nav>
       <button
-        aria-label="Menu"
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="pointer-events-auto tracking-luxe text-[0.6rem] text-chrome md:hidden"
+        className="pointer-events-auto relative z-[110] flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[color:var(--border)] bg-black/40 backdrop-blur-md md:hidden"
       >
-        {open ? "Close" : "Menu"}
+        <span className="relative block h-3 w-5">
+          <span
+            className={`absolute left-0 top-0 h-px w-5 bg-chrome transition-transform duration-500 ${open ? "translate-y-[6px] rotate-45" : ""}`}
+          />
+          <span
+            className={`absolute left-0 top-[6px] h-px w-5 bg-chrome transition-transform duration-500 ${open ? "-rotate-45" : ""}`}
+          />
+          <span
+            className={`absolute left-0 top-[12px] h-px w-5 bg-chrome transition-opacity duration-300 ${open ? "opacity-0" : ""}`}
+          />
+        </span>
       </button>
       <AnimatePresence>
         {open && (
@@ -63,14 +74,15 @@ export function SiteHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto fixed inset-0 z-[70] flex flex-col items-center justify-center gap-8 bg-background/95 backdrop-blur-md md:hidden"
+            className="pointer-events-auto fixed inset-0 z-[100] flex flex-col items-center justify-center gap-7 bg-background/95 px-6 backdrop-blur-md md:hidden"
           >
             {NAV.map((n, i) => (
               <motion.div
                 key={n.to}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.6, delay: 0.08 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Link
                   to={n.to}
@@ -81,6 +93,14 @@ export function SiteHeader() {
                 </Link>
               </motion.div>
             ))}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="tracking-luxe absolute bottom-10 text-[0.55rem] text-[color:var(--steel)]"
+            >
+              Waliya · Atelier
+            </motion.span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -90,10 +110,10 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-[15] border-t border-[color:var(--border)] bg-background px-6 py-14 md:px-14">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 md:flex-row">
+    <footer className="relative z-[15] border-t border-[color:var(--border)] bg-background px-5 py-12 md:px-14 md:py-14">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left">
         <span className="tracking-luxe text-[0.6rem] text-chrome">Waliya · Est. Ethiopia</span>
-        <div className="flex flex-wrap items-center justify-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
           {NAV.map((n) => (
             <Link
               key={n.to}
@@ -127,29 +147,29 @@ export function PageShell({
     <div className="relative min-h-screen bg-background grain vignette">
       <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_center,#0a0a0a_0%,#050505_60%,#000_100%)]" />
       <SiteHeader />
-      <main className="relative z-[15] px-6 pb-24 pt-40 md:px-14 md:pt-52">
+      <main className="relative z-[15] px-5 pb-20 pt-32 sm:px-8 sm:pt-40 md:px-14 md:pt-52 md:pb-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto max-w-6xl"
         >
-          <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
+          <span className="tracking-luxe text-[0.6rem] text-[color:var(--bronze)] md:text-[0.65rem]">
             {eyebrow}
           </span>
-          <h1 className="font-serif mt-8 text-[clamp(2.75rem,9vw,7rem)] leading-[0.95] text-chrome">
+          <h1 className="font-serif mt-6 break-words text-[clamp(2.25rem,9vw,7rem)] leading-[0.95] text-chrome md:mt-8">
             {title}
           </h1>
           {intro && (
             <>
-              <div className="hairline my-10 w-32" />
-              <p className="font-serif max-w-2xl text-[clamp(1.05rem,1.6vw,1.5rem)] leading-relaxed text-[color:var(--chrome)]/80">
+              <div className="hairline my-8 w-24 md:my-10 md:w-32" />
+              <p className="font-serif max-w-2xl text-[clamp(1rem,1.6vw,1.5rem)] leading-relaxed text-[color:var(--chrome)]/80">
                 {intro}
               </p>
             </>
           )}
         </motion.div>
-        <div className="mx-auto mt-20 max-w-6xl">{children}</div>
+        <div className="mx-auto mt-14 max-w-6xl md:mt-20">{children}</div>
       </main>
       <SiteFooter />
     </div>
