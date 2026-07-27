@@ -159,7 +159,7 @@ function IbexLayer({ progress }: { progress: MotionValue<number> }) {
           <motion.img
             src={ibexSrc}
             alt="WALIYA Ibex emblem"
-            className="h-[52vh] w-auto max-w-none select-none sm:h-[68vh] md:h-[78vh]"
+            className="h-[46vh] w-auto max-w-[92vw] select-none sm:h-[68vh] sm:max-w-none md:h-[78vh]"
             style={{
               filter:
                 "drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 40px rgba(176,133,88,0.15))",
@@ -560,7 +560,7 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  FINAL CTA                                                   */}
       {/* ============================================================ */}
-      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center overflow-hidden bg-background px-6 py-24">
+      <section className="relative z-[15] flex min-h-[100vh] items-center justify-center overflow-hidden bg-background px-5 py-20 md:px-6 md:py-24">
         {/* Ibex watermark background */}
         <motion.img
           src={ibexSrc}
@@ -570,7 +570,7 @@ function WaliyaPage() {
           whileInView={{ opacity: 0.22, scale: 1 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[85vh] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 select-none"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[55vh] w-auto max-w-[110vw] -translate-x-1/2 -translate-y-1/2 select-none sm:h-[75vh] md:h-[85vh] md:max-w-none"
           style={{
             filter:
               "drop-shadow(0 30px 80px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(176,133,88,0.18))",
