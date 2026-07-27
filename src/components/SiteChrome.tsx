@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import waliyaWordmark from "../assets/waliya-wordmark.png";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -58,9 +59,13 @@ export function SiteHeader() {
       >
         <Link
           to="/"
-          className="tracking-luxe pointer-events-auto shrink-0 text-[0.6rem] text-chrome md:text-[0.7rem] transition-opacity hover:opacity-70"
+          className="pointer-events-auto block h-12 w-36 shrink-0 overflow-hidden transition-opacity hover:opacity-80 md:h-14 md:w-44"
         >
-          Waliya
+          <img
+            src={waliyaWordmark}
+            alt="Waliya"
+            className="h-full w-full object-cover object-center"
+          />
         </Link>
         <nav className="pointer-events-auto hidden items-center gap-7 md:flex">
           {NAV.slice(1).map((n) => (
