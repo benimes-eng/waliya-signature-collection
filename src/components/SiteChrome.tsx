@@ -19,17 +19,40 @@ export function SiteHeader() {
   const borderColor = useTransform(
     scrollY,
     [0, 120],
-    ["rgba(255,255,255,0)", "rgba(255,255,255,0.08)"]
+    ["rgba(255,255,255,0)", "rgba(255,255,255,0.08)"],
   );
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
   return (
     <motion.header
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-      style={{ backgroundColor: mounted ? bg : undefined, backdropFilter: mounted ? blur : undefined, borderBottom: "1px solid", borderColor: mounted ? borderColor : "transparent" }}
-      className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-6 py-5 md:px-14 md:py-6"
+      style={{
+        backgroundColor: open ? "#050505" : mounted ? bg : undefined,
+        backdropFilter: open ? "blur(16px)" : mounted ? blur : undefined,
+        borderBottom: "1px solid",
+        borderColor: open ? "rgba(255,255,255,0.08)" : mounted ? borderColor : "transparent",
+      }}
+      className="pointer-events-auto fixed inset-x-0 top-0 z-[110] flex items-center justify-between px-6 py-5 md:px-14 md:py-6"
     >
       <Link
         to="/"
@@ -51,6 +74,8 @@ export function SiteHeader() {
       </nav>
       <button
         aria-label="Menu"
+        aria-controls="mobile-navigation"
+        aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         className="pointer-events-auto tracking-luxe text-[0.6rem] text-chrome md:hidden"
       >
@@ -63,7 +88,11 @@ export function SiteHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto fixed inset-0 z-[70] flex flex-col items-center justify-center gap-8 bg-background/95 backdrop-blur-md md:hidden"
+            id="mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+            className="pointer-events-auto fixed inset-0 z-[105] flex flex-col items-center justify-center gap-5 bg-background px-6 pb-10 pt-24 md:hidden"
           >
             {NAV.map((n, i) => (
               <motion.div
@@ -75,7 +104,7 @@ export function SiteHeader() {
                 <Link
                   to={n.to}
                   onClick={() => setOpen(false)}
-                  className="font-serif text-4xl text-chrome"
+                  className="font-serif text-3xl text-chrome transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[color:var(--bronze)]"
                 >
                   {n.label}
                 </Link>
@@ -134,9 +163,7 @@ export function PageShell({
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto max-w-6xl"
         >
-          <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
-            {eyebrow}
-          </span>
+          <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">{eyebrow}</span>
           <h1 className="font-serif mt-8 text-[clamp(2.75rem,9vw,7rem)] leading-[0.95] text-chrome">
             {title}
           </h1>
