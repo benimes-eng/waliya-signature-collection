@@ -217,9 +217,15 @@ function HeroSection() {
       ref={sectionRef}
       className="relative flex min-h-[100dvh] w-full items-center justify-center overflow-hidden px-6 pt-24 pb-16 md:pt-28 md:pb-20"
     >
+      {/* Black transparent container — deepens the hero atmosphere */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{ backgroundColor: "rgba(0, 0, 0, 0.48)" }}
+      />
+
       {/* Background radial bronze glow */}
       <div
-        className="pointer-events-none absolute h-[70vh] w-[70vh] rounded-full sm:h-[85vh] sm:w-[85vh]"
+        className="pointer-events-none absolute h-[70vh] w-[70vh] rounded-full sm:h-[85vh] sm:w-[85vh] z-[2]"
         style={{
           background:
             "radial-gradient(circle, rgba(176,133,88,0.20) 0%, rgba(176,133,88,0.06) 35%, transparent 70%)",
