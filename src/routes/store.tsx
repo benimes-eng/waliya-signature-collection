@@ -65,7 +65,7 @@ const STOREFRONTS: Storefront[] = [
     platform: "SHOPIFY",
     description: "Full collection, signature tailoring & made-to-measure.",
     cta: "Enter Boutique →",
-    href: "https://www.shopify.com",
+    href: "https://waliya-signature.myshopify.com/",
   },
   {
     id: "printify",
@@ -74,7 +74,7 @@ const STOREFRONTS: Storefront[] = [
     platform: "PRINTIFY",
     description: "Limited capsule prints & numbered seasonal releases.",
     cta: "View Editions →",
-    href: "https://printify.com",
+    href: "https://waliya-signaturecollection.printify.me/",
   },
   {
     id: "etsy",
@@ -83,7 +83,7 @@ const STOREFRONTS: Storefront[] = [
     platform: "ETSY",
     description: "Archival pieces, artisan samples & rare studio finds.",
     cta: "Browse Archive →",
-    href: "https://www.etsy.com",
+    href: "https://www.etsy.com/shop/WaliyaSignature",
   },
 ];
 
