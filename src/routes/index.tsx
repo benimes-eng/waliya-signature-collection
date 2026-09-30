@@ -104,127 +104,23 @@ function Particles({ opacity }: { opacity: MotionValue<number> }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Fixed Ibex layer — the emotional anchor                           */
-/* ------------------------------------------------------------------ */
-function IbexLayer({ progress }: { progress: MotionValue<number> }) {
-  // Ibex forges in smoothly, holds centre-stage, then gracefully dissolves.
-  // More keyframe stops + spring smoothing on opacity for a silky cinematic feel.
-  const rawOpacity = useTransform(
-    progress,
-    [0,    0.02, 0.06, 0.12, 0.18, 0.22, 0.26, 0.30, 1],
-    [0,    0.15, 0.65, 0.92,  1,   0.88, 0.45,  0,   0],
-  );
-  // Spring-smooth the opacity so fast scrolling never makes it pop
-  const opacity = useSpring(rawOpacity, { stiffness: 50, damping: 22, mass: 1 });
-
-  const scale = useTransform(
-    progress,
-    [0,    0.04, 0.10, 0.18, 0.26, 0.30, 1],
-    [0.58, 0.82, 0.97, 1.01, 1.03, 0.95, 0.95],
-  );
-  const blur = useTransform(
-    progress,
-    [0,    0.03, 0.08, 0.16, 0.22, 0.30, 1],
-    [48,   20,   4,    0.5,  0,    10,   10],
-  );
-  const rotate = useTransform(progress, [0, 0.30], [-1.6, 0.5]);
-
-  const filter = useTransform(blur, (b) => `blur(${b}px)`);
-
-
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 40, damping: 20, mass: 1.2 });
-  const sy = useSpring(my, { stiffness: 40, damping: 20, mass: 1.2 });
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      const nx = (e.clientX / window.innerWidth - 0.5) * 24;
-      const ny = (e.clientY / window.innerHeight - 0.5) * 24;
-      mx.set(nx);
-      my.set(ny);
-    };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, [mx, my]);
-
-  return (
-    <motion.div
-      style={{ opacity }}
-      className="pointer-events-none fixed inset-0 z-[10] flex items-center justify-center"
-    >
-      <div
-        className="absolute h-[60vh] w-[60vh] rounded-full sm:h-[80vh] sm:w-[80vh]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(176,133,88,0.18) 0%, rgba(176,133,88,0.05) 30%, transparent 65%)",
-        }}
-      />
-
-      <motion.div
-        style={{ scale, filter, rotate, x: sx, y: sy }}
-        className="relative"
-      >
-        <motion.div
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <motion.img
-            src={ibexSrc}
-            alt="WALIYA Ibex emblem"
-            className="h-[46vh] w-auto max-w-[92vw] select-none sm:h-[68vh] sm:max-w-none md:h-[78vh]"
-            style={{
-              filter:
-                "drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 40px rgba(176,133,88,0.15))",
-            }}
-            animate={{ scale: [1, 1.012, 1] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            draggable={false}
-          />
-        </motion.div>
-
-        <motion.div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(100deg, transparent 40%, rgba(255,255,255,0.16) 50%, transparent 60%)",
-            mixBlendMode: "overlay",
-          }}
-          animate={{ backgroundPosition: ["-200% 0", "200% 0"] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        />
-      </motion.div>
-    </motion.div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
 /*  Floating luxury items — drifting emblems around the hero          */
 /* ------------------------------------------------------------------ */
-function FloatingLuxe({
-  opacity,
-  parallaxY,
-}: {
-  opacity: MotionValue<number>;
-  parallaxY: MotionValue<number>;
-}) {
+function FloatingLuxe() {
   const items = useMemo(
     () => [
-      { left: "8%", top: "18%", size: 46, delay: 0, dur: 9, glyph: "◆" },
-      { left: "88%", top: "22%", size: 34, delay: 1.2, dur: 11, glyph: "✦" },
-      { left: "14%", top: "72%", size: 40, delay: 0.6, dur: 10, glyph: "❖" },
-      { left: "82%", top: "68%", size: 52, delay: 1.8, dur: 12, glyph: "◇" },
-      { left: "50%", top: "10%", size: 26, delay: 2.4, dur: 8, glyph: "✧" },
-      { left: "6%", top: "45%", size: 30, delay: 3, dur: 13, glyph: "•" },
-      { left: "94%", top: "48%", size: 30, delay: 0.9, dur: 14, glyph: "•" },
+      { left: "8%", top: "18%", size: 42, delay: 0, dur: 9, glyph: "◆" },
+      { left: "88%", top: "22%", size: 32, delay: 1.2, dur: 11, glyph: "✦" },
+      { left: "14%", top: "72%", size: 38, delay: 0.6, dur: 10, glyph: "❖" },
+      { left: "84%", top: "68%", size: 46, delay: 1.8, dur: 12, glyph: "◇" },
+      { left: "50%", top: "12%", size: 24, delay: 2.4, dur: 8, glyph: "✧" },
+      { left: "6%", top: "45%", size: 28, delay: 3, dur: 13, glyph: "•" },
+      { left: "94%", top: "48%", size: 28, delay: 0.9, dur: 14, glyph: "•" },
     ],
     [],
   );
   return (
-    <motion.div
-      style={{ opacity, y: parallaxY }}
-      className="pointer-events-none absolute inset-0 z-[8] hidden sm:block"
-    >
+    <div className="pointer-events-none absolute inset-0 z-[7] hidden sm:block">
       {items.map((it, i) => (
         <motion.span
           key={i}
@@ -234,17 +130,17 @@ function FloatingLuxe({
             top: it.top,
             fontSize: it.size,
             color:
-              i % 2 === 0 ? "rgba(176,133,88,0.55)" : "rgba(217,220,223,0.4)",
+              i % 2 === 0 ? "rgba(176,133,88,0.45)" : "rgba(217,220,223,0.32)",
             textShadow:
               i % 2 === 0
-                ? "0 0 18px rgba(176,133,88,0.5)"
-                : "0 0 14px rgba(217,220,223,0.35)",
+                ? "0 0 16px rgba(176,133,88,0.45)"
+                : "0 0 12px rgba(217,220,223,0.3)",
           }}
           animate={{
             y: [0, -18, 0],
             x: [0, i % 2 === 0 ? 8 : -8, 0],
             rotate: [0, 6, 0],
-            opacity: [0.2, 0.9, 0.2],
+            opacity: [0.25, 0.85, 0.25],
           }}
           transition={{
             duration: it.dur,
@@ -256,7 +152,7 @@ function FloatingLuxe({
           {it.glyph}
         </motion.span>
       ))}
-    </motion.div>
+    </div>
   );
 }
 
@@ -286,98 +182,150 @@ function Reveal({
 }
 
 /* ------------------------------------------------------------------ */
-/*  IntroStage — the cinematic hero, self-contained sticky            */
+/*  HeroSection — instant cinematic hero with rich entrance & motion  */
 /* ------------------------------------------------------------------ */
-function IntroStage({ progress }: { progress: MotionValue<number> }) {
+function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: localP } = useScroll({
+  const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"],
+    offset: ["start start", "end start"],
   });
 
-  // Cinematic sequence — softer, longer easings for a silkier reveal:
-  //  • 0.00 – 0.30 : Ibex forges in, holds the stage alone.
-  //  • 0.30 – 0.48 : Title rises from below.
-  //  • 0.44 – 0.60 : Sub-copy fades in.
-  //  • 0.56 – 0.72 : Explore button emerges.
-  //  • 0.78 – 0.96 : Whole hero eases out cleanly before Heritage.
-  const heroOpacity = useTransform(
-    localP,
-    [0.28, 0.42, 0.58, 0.78, 0.9, 0.98],
-    [0, 0.6, 1, 1, 0.3, 0],
-  );
-  const heroY = useTransform(localP, [0.28, 0.5, 0.78, 0.98], [90, 0, -8, -60]);
-  const heroScale = useTransform(localP, [0.28, 0.5, 0.78, 0.98], [0.93, 1, 1.02, 1.06]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  const ibexY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const ibexScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
-  const titleOpacity = useTransform(localP, [0.3, 0.48], [0, 1]);
-  const titleY = useTransform(localP, [0.3, 0.48], [50, 0]);
-  const subOpacity = useTransform(localP, [0.44, 0.6], [0, 1]);
-  const subY = useTransform(localP, [0.44, 0.6], [30, 0]);
-  const ctaOpacity = useTransform(localP, [0.56, 0.72], [0, 1]);
-  const ctaY = useTransform(localP, [0.56, 0.72], [30, 0]);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 45, damping: 22, mass: 1 });
+  const sy = useSpring(my, { stiffness: 45, damping: 22, mass: 1 });
 
-  // Floating luxe items — smoother in/out.
-  const luxeOpacity = useTransform(
-    localP,
-    [0, 0.08, 0.22, 0.75, 0.88, 1],
-    [0, 0.5, 1, 1, 0.35, 0],
-  );
-  const luxeParallax = useTransform(localP, [0, 1], [40, -180]);
-
-  const scrollHintOpacity = useTransform(localP, [0, 0.08, 0.22], [1, 0.7, 0]);
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      const nx = (e.clientX / window.innerWidth - 0.5) * 22;
+      const ny = (e.clientY / window.innerHeight - 0.5) * 22;
+      mx.set(nx);
+      my.set(ny);
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [mx, my]);
 
   return (
-    <section ref={sectionRef} className="relative h-[260vh]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <FloatingLuxe opacity={luxeOpacity} parallaxY={luxeParallax} />
+    <section
+      ref={sectionRef}
+      className="relative flex min-h-[100dvh] w-full items-center justify-center overflow-hidden px-6 pt-24 pb-16 md:pt-28 md:pb-20"
+    >
+      {/* Background radial bronze glow */}
+      <div
+        className="pointer-events-none absolute h-[70vh] w-[70vh] rounded-full sm:h-[85vh] sm:w-[85vh]"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(176,133,88,0.20) 0%, rgba(176,133,88,0.06) 35%, transparent 70%)",
+        }}
+      />
+
+      {/* Floating luxury glyphs */}
+      <FloatingLuxe />
+
+      {/* Ibex artwork — visible immediately on page load with smooth breathing animation */}
+      <motion.div
+        style={{
+          y: ibexY,
+          scale: ibexScale,
+          x: sx,
+        }}
+        initial={{ opacity: 0, scale: 0.92, filter: "blur(20px)" }}
+        animate={{ opacity: 0.38, scale: 1, filter: "blur(0px)" }}
+        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-0 z-[6] flex items-center justify-center select-none"
+      >
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <motion.img
+            src={ibexSrc}
+            alt="WALIYA Ibex emblem"
+            className="h-[52vh] w-auto max-w-[90vw] select-none sm:h-[70vh] sm:max-w-none md:h-[80vh]"
+            style={{
+              filter:
+                "drop-shadow(0 30px 60px rgba(0,0,0,0.95)) drop-shadow(0 0 50px rgba(176,133,88,0.22))",
+            }}
+            animate={{ scale: [1, 1.015, 1] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            draggable={false}
+          />
+        </motion.div>
+      </motion.div>
+
+      {/* Hero Typography & CTA — loaded immediately with staggered luxury animations */}
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-[20] flex flex-col items-center px-6 text-center max-w-4xl"
+      >
+        <motion.span
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="tracking-luxe mb-6 text-[0.62rem] text-[color:var(--bronze)] md:mb-8 md:text-[0.68rem]"
+        >
+          A House Forged in Altitude
+        </motion.span>
+
+        <motion.h1
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.3, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="font-serif text-[clamp(3.8rem,14vw,12rem)] leading-[0.9] text-chrome tracking-tight"
+        >
+          WALIYA
+        </motion.h1>
 
         <motion.div
-          style={{ opacity: scrollHintOpacity }}
-          className="scroll-hint tracking-luxe absolute inset-x-0 bottom-10 z-[25] text-center text-[0.6rem] text-[color:var(--steel)] md:bottom-14"
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ duration: 1.1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="hairline my-7 w-32 md:my-9 md:w-44 origin-center"
+        />
+
+        <motion.p
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="font-serif max-w-xl text-[clamp(1.05rem,2vw,1.75rem)] leading-snug text-[color:var(--chrome)]/90"
         >
-          Scroll · Begin
-        </motion.div>
+          Forged Above.
+          <br />
+          Crafted Beyond Trends.
+        </motion.p>
 
         <motion.div
-          style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}
-          className="absolute inset-0 z-[20] flex items-center justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="flex flex-col items-center px-6 text-center">
-            <motion.span
-              style={{ opacity: titleOpacity, y: titleY }}
-              className="tracking-luxe mb-6 text-[0.6rem] text-[color:var(--bronze)] md:mb-8 md:text-[0.65rem]"
-            >
-              A House Forged in Altitude
-            </motion.span>
-            <motion.h1
-              style={{ opacity: titleOpacity, y: titleY }}
-              className="font-serif text-[clamp(3.5rem,14vw,13rem)] leading-[0.9] text-chrome"
-            >
-              WALIYA
-            </motion.h1>
-            <motion.div
-              style={{ opacity: subOpacity }}
-              className="hairline my-8 w-32 md:my-10 md:w-40"
-            />
-            <motion.p
-              style={{ opacity: subOpacity, y: subY }}
-              className="font-serif max-w-xl text-[clamp(1rem,2vw,1.8rem)] text-[color:var(--chrome)]/85"
-            >
-              Forged Above.
-              <br />
-              Crafted Beyond Trends.
-            </motion.p>
-            <motion.a
-              href="/collection"
-              style={{ opacity: ctaOpacity, y: ctaY }}
-              className="btn-luxe mt-10 md:mt-14"
-            >
-              <span className="dot" />
-              Explore Collection
-            </motion.a>
-          </div>
+          <a
+            href="/collection"
+            className="btn-luxe mt-10 md:mt-12"
+          >
+            <span className="dot" />
+            Explore Collection
+          </a>
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* Ambient scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 1 }}
+        style={{ opacity: contentOpacity }}
+        className="scroll-hint tracking-luxe absolute inset-x-0 bottom-6 z-[25] text-center text-[0.58rem] text-[color:var(--steel)] md:bottom-10"
+      >
+        Scroll · Discover
+      </motion.div>
     </section>
   );
 }
@@ -398,23 +346,19 @@ function WaliyaPage() {
     restDelta: 0.0005,
   });
 
-  // Particle opacity: dense during forge, whisper during body, resurge in finale.
+  // Particle opacity: shimmering gently across the page
   const particleOpacity = useTransform(
     progress,
-    [0, 0.04, 0.12, 0.22, 0.4, 0.82, 0.94, 1],
-    [1, 0.95, 0.6, 0.2, 0.12, 0.15, 0.55, 0.8],
+    [0, 0.3, 0.7, 1],
+    [0.85, 0.3, 0.35, 0.75],
   );
 
-  // Background fog — eased in/out with more stops for smoother wash.
+  // Background fog — eased in/out with soft wash
   const fogOpacity = useTransform(
     progress,
-    [0, 0.15, 0.32, 0.55, 0.75, 0.92, 1],
-    [0, 0.35, 0.55, 0.6, 0.5, 0.3, 0.15],
+    [0, 0.3, 0.6, 1],
+    [0.3, 0.5, 0.45, 0.25],
   );
-
-
-
-
 
   return (
     <div ref={rootRef} className="relative grain vignette bg-background">
@@ -435,21 +379,8 @@ function WaliyaPage() {
       </motion.div>
 
       <Particles opacity={particleOpacity} />
-      <IbexLayer progress={progress} />
-
       <SiteHeader />
-
-
-      {/* ============================================================ */}
-      {/*  STAGE 1–4 — Cinematic Introduction (self-contained sticky)  */}
-      {/* ============================================================ */}
-      <IntroStage progress={progress} />
-
-      {/* Breathing gap between intro and heritage — prevents overlap */}
-      <div className="relative h-[30vh] md:h-[40vh]">
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
-      </div>
+      <HeroSection />
 
       {/* ============================================================ */}
       {/*  HERITAGE                                                    */}

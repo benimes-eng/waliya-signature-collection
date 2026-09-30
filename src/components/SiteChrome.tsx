@@ -55,16 +55,16 @@ export function SiteHeader() {
           borderBottom: "1px solid",
           borderColor: open ? "rgba(255,255,255,0.08)" : mounted ? borderColor : "transparent",
         }}
-        className="pointer-events-auto fixed inset-x-0 top-0 z-[110] flex items-center justify-between gap-4 px-5 py-4 md:px-14 md:py-6"
+        className="pointer-events-auto fixed inset-x-0 top-0 z-[110] flex items-center justify-between gap-4 px-5 py-3 md:px-14 md:py-4"
       >
         <Link
           to="/"
-          className="pointer-events-auto block h-24 w-72 shrink-0 overflow-hidden transition-opacity hover:opacity-80 md:h-[7.5rem] md:w-96"
+          className="pointer-events-auto block h-9 w-auto shrink-0 transition-opacity hover:opacity-80 md:h-11"
         >
           <img
             src={waliyaWordmark}
             alt="Waliya"
-            className="h-full w-full object-contain object-center"
+            className="h-full w-auto object-contain object-left"
           />
         </Link>
         <nav className="pointer-events-auto hidden items-center gap-7 md:flex">
