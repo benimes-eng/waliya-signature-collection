@@ -311,7 +311,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          className="font-serif max-w-xl text-[clamp(1.05rem,2vw,1.75rem)] leading-snug text-[color:var(--chrome)]/90"
+          className="font-serif max-w-xl text-[clamp(1.05rem,2vw,1.75rem)] leading-snug text-white/90"
         >
           Forged Above.
           <br />
