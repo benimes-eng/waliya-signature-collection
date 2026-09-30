@@ -157,29 +157,41 @@ function OriginSection() {
       className="relative overflow-hidden"
       style={{ height: "72vh", minHeight: 520 }}
     >
-      {/* Cinematic image */}
+      {/* Cinematic image with smooth entrance */}
       <motion.img
         src={heritageOriginSrc}
         alt="Walia Ibex above the Simien Mountains"
+        initial={{ scale: 1.08, opacity: 0 }}
+        animate={{ scale: 1.04, opacity: 1 }}
+        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
         style={{ scale: imgScale }}
         className="absolute inset-0 h-full w-full object-cover"
         draggable={false}
       />
 
-      {/* Left-side gradient overlay */}
+      {/* Black transparent container to make image darker */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.46)",
+        }}
+      />
+
+      {/* Left-side editorial gradient ramp */}
       <motion.div
         style={{ opacity: overlayOpacity }}
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 z-[2]"
         aria-hidden
-        // Strong left-to-right gradient so text reads over the image
-        // Keep right side more visible to preserve the Ibex subject
         initial={false}
       >
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to right, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.70) 38%, rgba(5,5,5,0.20) 65%, rgba(5,5,5,0.04) 100%)",
+              "linear-gradient(to right, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.72) 38%, rgba(5,5,5,0.22) 68%, rgba(5,5,5,0.06) 100%)",
           }}
         />
         {/* Bottom vignette */}
@@ -187,7 +199,7 @@ function OriginSection() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, rgba(5,5,5,0.85) 0%, transparent 40%)",
+              "linear-gradient(to top, rgba(5,5,5,0.9) 0%, transparent 42%)",
           }}
         />
       </motion.div>
@@ -195,7 +207,7 @@ function OriginSection() {
       {/* Text overlay — left aligned */}
       <motion.div
         style={{ y: textY }}
-        className="relative flex h-full flex-col justify-center px-8 md:px-16 lg:px-24"
+        className="relative z-[3] flex h-full flex-col justify-center px-8 md:px-16 lg:px-24"
       >
         <div className="max-w-lg">
           {/* Eyebrow */}
@@ -787,6 +799,14 @@ function HeritagePage() {
           "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E\")",
       }}
     >
+      {/* Smooth cinematic curtain reveal on initial page load */}
+      <motion.div
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+        className="pointer-events-none fixed inset-0 z-[200] bg-[#050505]"
+      />
+
       {/* Opaque header backdrop so navbar sits on a solid dark base */}
       <div
         className="fixed inset-x-0 top-0 z-[100] h-[60px] md:h-[76px] border-b border-white/[0.08]"
@@ -795,12 +815,17 @@ function HeritagePage() {
       {/* Existing global navbar */}
       <SiteHeader />
 
-      {/* Content starts strictly below the navbar — no overlap */}
-      <div className="pt-[60px] md:pt-[76px]">
+      {/* Content starts strictly below the navbar — smooth entrance */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+        className="pt-[60px] md:pt-[76px]"
+      >
         <OriginSection />
         <StrengthSection />
         <HarmonySection />
-      </div>
+      </motion.div>
 
       <HeritageFooter />
     </div>
