@@ -751,7 +751,7 @@ function HeritageFooter() {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="flex flex-wrap justify-center gap-6"
       >
-        {["Heritage", "Atelier", "Journal", "Store", "Contact"].map((label) => (
+        {["Heritage", "Atelier", "Store", "Contact"].map((label) => (
           <a
             key={label}
             href={`/${label.toLowerCase()}`}
