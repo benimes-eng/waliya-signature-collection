@@ -236,24 +236,26 @@ function HeroSection() {
           scale: ibexScale,
           x: sx,
         }}
-        initial={{ opacity: 0, scale: 0.92, filter: "blur(20px)" }}
-        animate={{ opacity: 0.38, scale: 1, filter: "blur(0px)" }}
+        initial={{ opacity: 0, scale: 0.94, filter: "blur(18px)" }}
+        animate={{ opacity: 0.58, scale: 1, filter: "blur(0px)" }}
         transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
         className="pointer-events-none absolute inset-0 z-[6] flex items-center justify-center select-none"
       >
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="flex items-center justify-center w-full"
         >
           <motion.img
             src={ibexSrc}
-            alt="WALIYA Ibex emblem"
-            className="h-[52vh] w-auto max-w-[90vw] select-none sm:h-[70vh] sm:max-w-none md:h-[80vh]"
+            alt="WALIYA Golden Mountain and Ibex emblem"
+            className="w-[96vw] max-w-[1320px] h-auto max-h-[82vh] object-contain select-none"
             style={{
               filter:
-                "drop-shadow(0 30px 60px rgba(0,0,0,0.95)) drop-shadow(0 0 50px rgba(176,133,88,0.22))",
+                "drop-shadow(0 30px 70px rgba(0,0,0,0.95)) drop-shadow(0 0 60px rgba(234,179,8,0.25))",
+              mixBlendMode: "screen",
             }}
-            animate={{ scale: [1, 1.015, 1] }}
+            animate={{ scale: [1, 1.018, 1] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             draggable={false}
           />
@@ -519,14 +521,15 @@ function WaliyaPage() {
           src={ibexSrc}
           alt=""
           aria-hidden
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 0.22, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.92 }}
+          whileInView={{ opacity: 0.35, scale: 1 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[55vh] w-auto max-w-[110vw] -translate-x-1/2 -translate-y-1/2 select-none sm:h-[75vh] md:h-[85vh] md:max-w-none"
+          className="pointer-events-none absolute left-1/2 top-1/2 w-[95vw] max-w-[1240px] h-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
           style={{
             filter:
-              "drop-shadow(0 30px 80px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(176,133,88,0.18))",
+              "drop-shadow(0 30px 80px rgba(0,0,0,0.9)) drop-shadow(0 0 60px rgba(234,179,8,0.22))",
+            mixBlendMode: "screen",
           }}
           draggable={false}
         />
