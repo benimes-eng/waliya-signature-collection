@@ -283,10 +283,19 @@ function HeroSection() {
           WALIYA
         </motion.h1>
 
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="tracking-luxe mt-4 text-[clamp(0.68rem,1.2vw,0.95rem)] font-light text-[color:var(--bronze)] md:mt-5"
+        >
+          Signature Collection
+        </motion.p>
+
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 1.1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.1, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="hairline my-7 w-32 md:my-9 md:w-44 origin-center"
         />
 
@@ -538,6 +547,9 @@ function WaliyaPage() {
             <h2 className="font-serif mt-10 text-[clamp(4rem,14vw,13rem)] leading-[0.9] text-chrome">
               WALIYA
             </h2>
+            <p className="tracking-luxe mt-4 text-[clamp(0.65rem,1.1vw,0.85rem)] font-light text-[color:var(--bronze)]">
+              Signature Collection
+            </p>
           </Reveal>
           <Reveal delay={0.3}>
             <p className="font-serif mt-6 text-[clamp(1.1rem,2vw,1.6rem)] text-[color:var(--chrome)]/80">
