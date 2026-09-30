@@ -396,7 +396,7 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  HERITAGE                                                    */}
       {/* ============================================================ */}
-      <section className="relative z-[15] min-h-[140vh] bg-background px-6 md:px-14">
+      <section className="relative z-[15] min-h-[110vh] bg-background px-6 md:px-14">
         <div
           className="topo pointer-events-none absolute inset-0 opacity-70"
           aria-hidden
@@ -412,30 +412,40 @@ function WaliyaPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
         </div>
 
-        <div className="relative mx-auto flex min-h-[140vh] max-w-6xl flex-col justify-center py-24 md:py-40">
+        <div className="relative mx-auto flex min-h-[110vh] max-w-6xl flex-col justify-center py-24 md:py-36">
           <Reveal>
             <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
               I · Heritage
             </span>
           </Reveal>
-          <Reveal delay={0.15}>
-            <h2 className="font-serif mt-10 text-[clamp(2.5rem,8vw,7rem)] leading-[0.95] text-chrome">
-              Forged Above.
+          <Reveal delay={0.12}>
+            <h2 className="font-serif mt-10 text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-chrome">
+              Born from the mountains.
             </h2>
           </Reveal>
-          <Reveal delay={0.3}>
-            <h2 className="font-serif text-[clamp(2.5rem,8vw,7rem)] leading-[0.95] text-[color:var(--chrome)]/70">
-              Inspired by Altitude.
+          <Reveal delay={0.22}>
+            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-[color:var(--chrome)]/85">
+              Crafted for the world.
             </h2>
           </Reveal>
-          <Reveal delay={0.45}>
-            <h2 className="font-serif text-[clamp(2.5rem,8vw,7rem)] leading-[0.95] text-[color:var(--chrome)]/45">
-              Rooted in Ethiopia.
+          <Reveal delay={0.32}>
+            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-[color:var(--bronze)]">
+              Inspired by the Walia Ibex,
             </h2>
           </Reveal>
-          <Reveal delay={0.6}>
-            <h2 className="font-serif text-[clamp(2.5rem,8vw,7rem)] leading-[0.95] text-[color:var(--chrome)]/25">
-              Crafted for the World.
+          <Reveal delay={0.42}>
+            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-[color:var(--chrome)]/65">
+              WALIYA Signature Collection is for those
+            </h2>
+          </Reveal>
+          <Reveal delay={0.52}>
+            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-[color:var(--chrome)]/45">
+              who rise above the ordinary to reach
+            </h2>
+          </Reveal>
+          <Reveal delay={0.62}>
+            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-chrome font-normal">
+              the extraordinary.
             </h2>
           </Reveal>
         </div>
