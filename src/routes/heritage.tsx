@@ -787,11 +787,16 @@ function HeritagePage() {
           "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E\")",
       }}
     >
+      {/* Opaque header backdrop so navbar sits on a solid dark base */}
+      <div
+        className="fixed inset-x-0 top-0 z-[100] h-[60px] md:h-[76px] border-b border-white/[0.08]"
+        style={{ backgroundColor: "#050505" }}
+      />
       {/* Existing global navbar */}
       <SiteHeader />
 
-      {/* Push content below fixed navbar */}
-      <div style={{ paddingTop: 0 }}>
+      {/* Content starts strictly below the navbar — no overlap */}
+      <div className="pt-[60px] md:pt-[76px]">
         <OriginSection />
         <StrengthSection />
         <HarmonySection />
