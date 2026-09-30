@@ -7,6 +7,8 @@ import {
 } from "motion/react";
 import { SiteHeader, SiteFooter } from "../components/SiteChrome";
 import heritageOriginSrc from "../assets/heritage-origin.jpg";
+import videoStrengthSrc from "../assets/Waliya01.mp4";
+import videoHarmonySrc from "../assets/Waliya02.mp4";
 
 export const Route = createFileRoute("/heritage")({
   head: () => ({
@@ -29,15 +31,13 @@ export const Route = createFileRoute("/heritage")({
   component: HeritagePage,
 });
 
-/* ── Lazy Video: plays only when in viewport ──────────────── */
-function LazyVideo({
+/* ── Continuous Background Video ──────────────────────────── */
+function BackgroundVideo({
   src,
-  poster,
   className,
   style,
 }: {
   src?: string;
-  poster?: string;
   className?: string;
   style?: React.CSSProperties;
 }) {
@@ -46,33 +46,19 @@ function LazyVideo({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            el.play().catch(() => {});
-          } else {
-            el.pause();
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    el.muted = true;
+    el.play().catch(() => {});
+  }, [src]);
 
   return (
     <video
       ref={ref}
       src={src}
-      poster={poster}
+      autoPlay
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="auto"
       className={className}
       style={style}
     />
@@ -352,8 +338,8 @@ function StrengthSection() {
   const videoScale = useTransform(scrollYProgress, [0, 1], [1.03, 1.0]);
   const textY = useTransform(scrollYProgress, [0.1, 0.8], [20, -20]);
 
-  // Video src — user adds this file to src/assets/
-  const VIDEO_SRC: string | undefined = undefined; // replace with: videoStrengthSrc
+  // Video src — Waliya01.mp4
+  const VIDEO_SRC = videoStrengthSrc;
 
   return (
     <section
@@ -367,24 +353,16 @@ function StrengthSection() {
       >
         {/* LEFT — Video */}
         <div className="relative flex items-center justify-center overflow-hidden bg-[#080808]">
-          {VIDEO_SRC ? (
-            <motion.div
-              style={{ scale: videoScale }}
-              className="w-full"
-            >
-              <LazyVideo
-                src={VIDEO_SRC}
-                className="block w-full object-cover"
-                style={{ aspectRatio: "1 / 1" }}
-              />
-            </motion.div>
-          ) : (
-            <VideoPlaceholder
-              label="Heritage Video 02 — The Loom"
-              className="w-full"
+          <motion.div
+            style={{ scale: videoScale }}
+            className="w-full h-full"
+          >
+            <BackgroundVideo
+              src={VIDEO_SRC}
+              className="block w-full h-full object-cover"
               style={{ aspectRatio: "1 / 1" }}
             />
-          )}
+          </motion.div>
           {/* Subtle right-edge vignette blending into text column */}
           <div
             className="pointer-events-none absolute inset-y-0 right-0 w-24 hidden md:block"
@@ -515,8 +493,8 @@ function HarmonySection() {
   const videoScale = useTransform(scrollYProgress, [0, 1], [1.03, 1.0]);
   const textY = useTransform(scrollYProgress, [0.1, 0.8], [20, -20]);
 
-  // Video src — user adds this file to src/assets/
-  const VIDEO_SRC: string | undefined = undefined; // replace with: videoHarmonySrc
+  // Video src — Waliya02.mp4
+  const VIDEO_SRC = videoHarmonySrc;
 
   return (
     <section
@@ -643,21 +621,13 @@ function HarmonySection() {
                 "linear-gradient(to left, transparent, rgba(5,5,5,0.3))",
             }}
           />
-          {VIDEO_SRC ? (
-            <motion.div style={{ scale: videoScale }} className="w-full">
-              <LazyVideo
-                src={VIDEO_SRC}
-                className="block w-full object-cover"
-                style={{ aspectRatio: "1 / 1" }}
-              />
-            </motion.div>
-          ) : (
-            <VideoPlaceholder
-              label="Heritage Video 03 — The Atelier"
-              className="w-full"
+          <motion.div style={{ scale: videoScale }} className="w-full h-full">
+            <BackgroundVideo
+              src={VIDEO_SRC}
+              className="block w-full h-full object-cover"
               style={{ aspectRatio: "1 / 1" }}
             />
-          )}
+          </motion.div>
         </div>
       </div>
     </section>
