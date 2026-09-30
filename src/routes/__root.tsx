@@ -80,11 +80,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#050505" },
+      { property: "og:image", content: "/favicon-512x512.png" },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "512" },
+      { property: "og:image:height", content: "512" },
+      { name: "twitter:image", content: "/favicon-512x512.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/favicon.png", type: "image/png" },
+      { rel: "icon", href: "/favicon.ico" },
+      { rel: "shortcut icon", href: "/favicon.ico" },
+      { rel: "icon", href: "/favicon-48x48.png", type: "image/png", sizes: "48x48" },
+      { rel: "icon", href: "/favicon-192x192.png", type: "image/png", sizes: "192x192" },
+      { rel: "icon", href: "/favicon-512x512.png", type: "image/png", sizes: "512x512" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
+      { rel: "manifest", href: "/manifest.json" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
@@ -104,10 +114,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const schemaOrg = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "WALIYA",
+    logo: "/favicon-512x512.png",
+    image: "/favicon-512x512.png",
+  };
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
+        />
       </head>
       <body>
         {children}
