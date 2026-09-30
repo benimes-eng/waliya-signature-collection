@@ -396,7 +396,7 @@ function WaliyaPage() {
       {/* ============================================================ */}
       {/*  HERITAGE                                                    */}
       {/* ============================================================ */}
-      <section className="relative z-[15] min-h-[110vh] bg-background px-6 md:px-14">
+      <section className="relative z-[15] min-h-[90vh] flex items-center bg-background px-6 py-24 md:px-14 md:py-36">
         <div
           className="topo pointer-events-none absolute inset-0 opacity-70"
           aria-hidden
@@ -412,42 +412,45 @@ function WaliyaPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
         </div>
 
-        <div className="relative mx-auto flex min-h-[110vh] max-w-6xl flex-col justify-center py-24 md:py-36">
+        <div className="relative mx-auto w-full max-w-6xl">
           <Reveal>
             <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
               I · Heritage
             </span>
           </Reveal>
-          <Reveal delay={0.12}>
-            <h2 className="font-serif mt-10 text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-chrome">
-              Born from the mountains.
-            </h2>
+
+          {/* Primary monumental statement */}
+          <div className="mt-8 md:mt-12 space-y-2">
+            <Reveal delay={0.12}>
+              <h2 className="font-serif text-[clamp(2.75rem,7vw,6.5rem)] leading-[0.98] text-chrome tracking-tight">
+                Born from the mountains.
+              </h2>
+            </Reveal>
+            <Reveal delay={0.24}>
+              <h2 className="font-serif text-[clamp(2.75rem,7vw,6.5rem)] leading-[0.98] text-[color:var(--chrome)]/70 tracking-tight">
+                Crafted for the world.
+              </h2>
+            </Reveal>
+          </div>
+
+          {/* Luxury hairline divider */}
+          <Reveal delay={0.34}>
+            <div className="hairline my-10 md:my-14 w-28 md:w-36" />
           </Reveal>
-          <Reveal delay={0.22}>
-            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-[color:var(--chrome)]/85">
-              Crafted for the world.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.32}>
-            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-[color:var(--bronze)]">
-              Inspired by the Walia Ibex,
-            </h2>
-          </Reveal>
-          <Reveal delay={0.42}>
-            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-[color:var(--chrome)]/65">
-              WALIYA Signature Collection is for those
-            </h2>
-          </Reveal>
-          <Reveal delay={0.52}>
-            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-[color:var(--chrome)]/45">
-              who rise above the ordinary to reach
-            </h2>
-          </Reveal>
-          <Reveal delay={0.62}>
-            <h2 className="font-serif text-[clamp(2.2rem,5.5vw,4.8rem)] leading-[1.08] text-chrome font-normal">
-              the extraordinary.
-            </h2>
-          </Reveal>
+
+          {/* Manifesto description */}
+          <div className="max-w-3xl space-y-4">
+            <Reveal delay={0.42}>
+              <p className="tracking-luxe text-xs md:text-[0.78rem] text-[color:var(--bronze)] font-medium">
+                Inspired by the Walia Ibex
+              </p>
+            </Reveal>
+            <Reveal delay={0.52}>
+              <p className="font-serif text-[clamp(1.25rem,2.4vw,2.2rem)] leading-[1.35] text-[color:var(--chrome)]/90">
+                WALIYA Signature Collection is for those who rise above the ordinary to reach <span className="text-chrome font-normal">the extraordinary</span>.
+              </p>
+            </Reveal>
+          </div>
         </div>
       </section>
 
