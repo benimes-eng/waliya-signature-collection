@@ -19,6 +19,10 @@ import { SiteHeader, SiteFooter } from "../components/SiteChrome";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      {
+        name: "google-site-verification",
+        content: "Lmh1uo8bkGySb0d5KGmvM_QrI-YvjW6Ho_xStpq89gk",
+      },
       { title: "WALIYA — Forged Above. Crafted Beyond Trends." },
       {
         name: "description",

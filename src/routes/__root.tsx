@@ -80,6 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#050505" },
+      {
+        name: "google-site-verification",
+        content: "Lmh1uo8bkGySb0d5KGmvM_QrI-YvjW6Ho_xStpq89gk",
+      },
       { property: "og:image", content: "/favicon-512x512.png" },
       { property: "og:image:type", content: "image/png" },
       { property: "og:image:width", content: "512" },
@@ -125,6 +129,10 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <meta
+          name="google-site-verification"
+          content="Lmh1uo8bkGySb0d5KGmvM_QrI-YvjW6Ho_xStpq89gk"
+        />
         <HeadContent />
         <script
           type="application/ld+json"
