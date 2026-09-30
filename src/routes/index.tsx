@@ -532,43 +532,57 @@ function WaliyaPage() {
 
 
       {/* ============================================================ */}
-      {/*  COLLECTION — museum exhibits                                */}
+      {/*  COLLECTIONS — three chapters                               */}
       {/* ============================================================ */}
       <section className="relative z-[15] bg-background py-24 md:py-40">
-        <Reveal className="mx-auto max-w-6xl px-6 md:px-14">
+        <Reveal className="mx-auto max-w-6xl px-6 md:px-14 mb-20 md:mb-32">
           <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
             II · The Collection
           </span>
-          <h3 className="font-serif mt-8 text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] text-chrome">
-            Objects of Elevation
+          <h3 className="font-serif mt-6 text-[clamp(2.4rem,5.5vw,4.6rem)] leading-[1] text-chrome">
+            Three collections. One Waliya.
           </h3>
-          <div className="hairline mt-14 w-full" />
+          <div className="hairline mt-10 w-32" />
         </Reveal>
 
-        <Exhibit
-          index="01"
-          title="The Ascension Coat"
-          material="Ethiopian Highland Wool · Hand-Tailored"
-          copy="Weight and silence. A coat cut for cold air and long silences, structured to hold its shape at 4,000 metres."
-          image={piece01}
-          align="left"
-        />
-        <Exhibit
-          index="02"
-          title="The Weaver's Thread"
-          material="Hand-woven Cotton · Bronze Silk Warp"
-          copy="Every thread is drawn by hand on a wooden loom. The geometry is inherited, not designed — a language spoken through cloth."
-          image={piece02}
-          align="right"
-        />
-        <Exhibit
-          index="03"
-          title="The Obsidian Suit"
-          material="Volcanic Black Wool · Structured Shoulder"
-          copy="Cut from a single bolt of matte black wool. Nothing shines. Nothing wavers. Made to stand still and be seen."
-          image={piece03}
-          align="left"
-        />
+        <div className="mx-auto max-w-6xl px-6 md:px-14 space-y-28 md:space-y-44">
+          {/* 01 — EVERYDAY ESSENTIALS */}
+          <CollectionBlock
+            n="01"
+            label="01 — EVERYDAY ESSENTIALS"
+            title="Everyday Essentials"
+            description="Essential pieces, elevated. Everyday clothing crafted for movement, comfort, and understated presence."
+            categories={["Polo Shirts","Dress Shirts","Hoodies","Sweaters","Jackets","Shorts","Boxer Shorts","Socks"]}
+            cta="Explore Essentials"
+            href="/store#everyday-essentials"
+            image={piece01}
+            align="left"
+          />
+          {/* 02 — SPORT & ACTIVE */}
+          <CollectionBlock
+            n="02"
+            label="02 — SPORT & ACTIVE"
+            title="Sport & Active"
+            description="Made for movement. Performance-inspired essentials designed to move with you, wherever the journey leads."
+            categories={["Sportswear","Sports Hats","Scarves","Headwear"]}
+            cta="Explore Sport"
+            href="/store#sport-active"
+            image={piece02}
+            align="right"
+          />
+          {/* 03 — BABY & KIDS */}
+          <CollectionBlock
+            n="03"
+            label="03 — BABY & KIDS"
+            title="Baby & Kids"
+            description="The next generation of elevation. Thoughtful essentials made for the smallest members of the Waliya family."
+            categories={["Baby Clothing","Baby Sweatshirts","Baby Shirts","Baby Pants","Baby Hats","Baby Socks"]}
+            cta="Explore Baby & Kids"
+            href="/store#baby-kids"
+            image={piece03}
+            align="left"
+          />
+        </div>
       </section>
 
       {/* ============================================================ */}
@@ -660,6 +674,111 @@ function WaliyaPage() {
 }
 
 
+
+/* ------------------------------------------------------------------ */
+/*  CollectionBlock — editorial collection row for homepage            */
+/* ------------------------------------------------------------------ */
+function CollectionBlock({
+  n, label, title, description, categories, cta, href, image, align,
+}: {
+  n: string;
+  label: string;
+  title: string;
+  description: string;
+  categories: string[];
+  cta: string;
+  href: string;
+  image: string;
+  align: "left" | "right";
+}) {
+  const isRight = align === "right";
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const textY = useTransform(scrollYProgress, [0, 1], [24, -24]);
+
+  return (
+    <div ref={ref} className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-16">
+      {/* Large editorial image */}
+      <motion.div
+        style={{ y: imgY }}
+        className={`md:col-span-7 ${isRight ? "md:order-2" : "md:order-1"}`}
+      >
+        <Reveal>
+          <a
+            href={href}
+            className="group relative block aspect-[4/3] w-full overflow-hidden border border-[color:var(--border)] bg-[color:var(--charcoal)]"
+          >
+            <img
+              src={image}
+              alt={title}
+              loading="lazy"
+              className="h-full w-full object-cover grayscale-[15%] transition-all duration-[1400ms] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
+              style={{ filter: "brightness(0.88)" }}
+            />
+            <div
+              className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+              style={{
+                background: "linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%)",
+              }}
+            />
+            <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5" />
+            <span className="tracking-luxe absolute left-4 top-4 text-[0.6rem] text-[color:var(--bronze)]">
+              {n}
+            </span>
+          </a>
+        </Reveal>
+      </motion.div>
+
+      {/* Text column */}
+      <motion.div
+        style={{ y: textY }}
+        className={`md:col-span-5 ${isRight ? "md:order-1" : "md:order-2"}`}
+      >
+        <Reveal>
+          <span className="tracking-luxe text-[0.62rem] text-[color:var(--bronze)]">{label}</span>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h4 className="font-serif mt-4 text-[clamp(2rem,3.8vw,3.4rem)] leading-[1.05] text-chrome tracking-tight">
+            {title}
+          </h4>
+        </Reveal>
+        <Reveal delay={0.18}>
+          <div className="hairline my-6 w-20" />
+        </Reveal>
+        <Reveal delay={0.26}>
+          <p className="font-serif text-[clamp(1rem,1.8vw,1.3rem)] leading-relaxed text-[color:var(--chrome)]/80">
+            {description}
+          </p>
+        </Reveal>
+        <Reveal delay={0.36} className="mt-7">
+          <span className="tracking-luxe block text-[0.56rem] text-[color:var(--steel)] mb-3">
+            Included Categories:
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <span
+                key={cat}
+                className="inline-block border border-[color:var(--border)] bg-white/[0.015] px-3 py-1 text-[0.6rem] tracking-[0.14em] uppercase text-[color:var(--chrome)]/70"
+              >
+                {cat}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+        <Reveal delay={0.46} className="mt-10">
+          <a
+            href={href}
+            className="group/cta inline-flex items-center gap-3 text-xs tracking-luxe text-chrome transition-colors duration-500 hover:text-[color:var(--bronze)]"
+          >
+            <span>{cta} →</span>
+            <span className="h-px w-8 origin-left scale-x-75 bg-[color:var(--bronze)] transition-transform duration-500 group-hover/cta:scale-x-125" />
+          </a>
+        </Reveal>
+      </motion.div>
+    </div>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /*  Exhibit — scroll-driven parallax + camera zoom on image           */

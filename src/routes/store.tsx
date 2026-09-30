@@ -1,3 +1,4 @@
+// Store — Waliya Collection v2 (Everyday Essentials · Sport & Active · Baby & Kids)
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { PageShell } from "../components/SiteChrome";
