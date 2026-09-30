@@ -214,15 +214,6 @@ function StorePage() {
             Stores
           </span>
         </a>
-        <a
-          href="#featured-pieces"
-          className="group inline-flex items-center gap-2 border border-[color:var(--border)] bg-white/[0.015] px-4 py-2 transition-all duration-500 hover:border-[color:var(--bronze)] hover:bg-white/[0.03]"
-        >
-          <span className="font-serif text-xs text-[color:var(--bronze)]">✦</span>
-          <span className="tracking-luxe text-[0.58rem] text-[color:var(--steel)] group-hover:text-chrome transition-colors">
-            Featured Pieces
-          </span>
-        </a>
       </Reveal>
 
       {/* Primary Collections */}
@@ -254,30 +245,6 @@ function StorePage() {
           {STOREFRONTS.map((s) => (
             <RevealChild key={s.id}>
               <StoreCard store={s} />
-            </RevealChild>
-          ))}
-        </RevealStagger>
-      </section>
-
-      {/* ── FEATURED PIECES ── */}
-      <section id="featured-pieces" className="scroll-mt-32 mt-36 md:mt-52">
-        <Reveal>
-          <span className="tracking-luxe text-[0.62rem] text-[color:var(--bronze)]">
-            Featured Pieces
-          </span>
-          <h2 className="font-serif mt-4 text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.05] text-chrome">
-            Selected from the collection.
-          </h2>
-          <div className="hairline mt-8 w-28 md:w-36" />
-        </Reveal>
-
-        <RevealStagger
-          className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12"
-          stagger={0.12}
-        >
-          {PRODUCTS.map((p) => (
-            <RevealChild key={p.n}>
-              <ProductCard product={p} />
             </RevealChild>
           ))}
         </RevealStagger>
