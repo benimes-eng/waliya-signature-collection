@@ -59,7 +59,7 @@ export function SiteHeader() {
       >
         <Link
           to="/"
-          className="pointer-events-auto block h-12 w-36 shrink-0 overflow-hidden transition-opacity hover:opacity-80 md:h-14 md:w-44"
+          className="pointer-events-auto block h-16 w-48 shrink-0 overflow-hidden transition-opacity hover:opacity-80 md:h-20 md:w-64"
         >
           <img
             src={waliyaWordmark}
