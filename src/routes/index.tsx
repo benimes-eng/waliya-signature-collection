@@ -357,19 +357,10 @@ function HeritageSection() {
   const mountainScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
   const topoY = useTransform(scrollYProgress, [0, 1], [0, -90]);
 
-  const lines = [
-    { text: "Born from the mountains.", tone: "chrome", delay: 0.08 },
-    { text: "Crafted for the world.", tone: "chrome-soft", delay: 0.16 },
-    { text: "Inspired by the Walia Ibex,", tone: "gold-shimmer", delay: 0.24 },
-    { text: "WALIYA Signature Collection is for those", tone: "steel", delay: 0.32 },
-    { text: "who rise above the ordinary to reach", tone: "steel-muted", delay: 0.40 },
-    { text: "the extraordinary.", tone: "extraordinary", delay: 0.48 },
-  ];
-
   return (
     <section
       ref={sectionRef}
-      className="relative z-[15] min-h-[115vh] flex items-center justify-center bg-background px-6 pt-40 pb-28 md:px-14 md:pt-52 md:pb-36 overflow-hidden"
+      className="relative z-[15] min-h-screen flex items-center justify-center bg-background px-6 pt-36 pb-32 md:px-14 md:pt-48 md:pb-44 overflow-hidden"
     >
       {/* Topo lines with subtle scroll parallax */}
       <motion.div
@@ -403,13 +394,15 @@ function HeritageSection() {
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-5xl text-left">
+      <div className="relative mx-auto w-full max-w-4xl text-left">
+
+        {/* Section label */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-12%" }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 md:mb-12 flex items-center gap-3"
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-10 md:mb-14 flex items-center gap-3"
         >
           <span className="tracking-luxe text-[0.62rem] text-[color:var(--bronze)] md:text-[0.68rem]">
             I · Heritage
@@ -417,50 +410,68 @@ function HeritageSection() {
           <span className="h-px w-12 bg-[color:var(--bronze)]/40" />
         </motion.div>
 
-        <div className="space-y-3 sm:space-y-4 md:space-y-5">
-          {lines.map((line, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{
-                duration: 1.1,
-                delay: line.delay,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <h2
-                className={`font-serif text-[clamp(1.75rem,3.8vw,3.6rem)] leading-[1.18] tracking-tight ${
-                  line.tone === "chrome"
-                    ? "text-chrome font-light"
-                    : line.tone === "chrome-soft"
-                    ? "text-[color:var(--chrome)]/85 font-light"
-                    : line.tone === "steel"
-                    ? "text-[color:var(--chrome)]/70 font-light"
-                    : line.tone === "steel-muted"
-                    ? "text-[color:var(--steel)] font-light"
-                    : line.tone === "gold-shimmer"
-                    ? "font-normal drop-shadow-[0_0_25px_rgba(212,175,55,0.35)]"
-                    : "text-chrome font-normal drop-shadow-[0_0_20px_rgba(255,255,255,0.25)]"
-                }`}
-                style={
-                  line.tone === "gold-shimmer"
-                    ? {
-                        background:
-                          "linear-gradient(105deg, #d4af37 0%, #fff1b8 40%, #b08558 75%, #d4af37 100%)",
-                        backgroundSize: "200% auto",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                      }
-                    : undefined
-                }
-              >
-                {line.text}
-              </h2>
-            </motion.div>
-          ))}
-        </div>
+        {/* ── TIER 1: Monumental headline ── */}
+        <motion.h2
+          initial={{ opacity: 0, y: 48 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 1.2, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className="font-serif font-light leading-[1.12] tracking-tight text-chrome"
+          style={{ fontSize: "clamp(2.6rem, 6.5vw, 5.8rem)" }}
+        >
+          Born from the mountains.
+        </motion.h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 48 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 1.2, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          className="font-serif font-light leading-[1.12] tracking-tight text-[color:var(--chrome)]/75"
+          style={{ fontSize: "clamp(2.6rem, 6.5vw, 5.8rem)", marginTop: "0.08em" }}
+        >
+          Crafted for the world.
+        </motion.h2>
+
+        {/* ── Hairline separator ── */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 1, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
+          style={{ originX: 0 }}
+          className="my-8 md:my-10 h-px w-full max-w-xs bg-[color:var(--bronze)]/30"
+        />
+
+        {/* ── TIER 2: Eyebrow + manifesto paragraph ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* Eyebrow label */}
+          <p
+            className="tracking-luxe mb-4 md:mb-5"
+            style={{
+              fontSize: "clamp(0.6rem, 1vw, 0.72rem)",
+              background: "linear-gradient(105deg, #d4af37 0%, #fff1b8 45%, #b08558 80%, #d4af37 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              letterSpacing: "0.28em",
+            }}
+          >
+            INSPIRED BY THE WALIA IBEX
+          </p>
+
+          {/* Manifesto paragraph */}
+          <p
+            className="font-serif font-light leading-[1.55] text-[color:var(--chrome)]/70"
+            style={{ fontSize: "clamp(1.05rem, 2vw, 1.45rem)", maxWidth: "34ch" }}
+          >
+            WALIYA Signature Collection is for those who rise above the ordinary to reach the extraordinary.
+          </p>
+        </motion.div>
+
       </div>
     </section>
   );
