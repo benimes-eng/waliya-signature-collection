@@ -64,7 +64,7 @@ export function SiteHeader() {
           <img
             src={waliyaWordmark}
             alt="Waliya"
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-contain object-center"
           />
         </Link>
         <nav className="pointer-events-auto hidden items-center gap-7 md:flex">
