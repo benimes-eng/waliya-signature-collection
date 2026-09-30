@@ -10,9 +10,9 @@ import {
 } from "motion/react";
 import ibexSrc from "../assets/ibex.png";
 import mountainsSrc from "../assets/mountains.jpg";
-import piece01 from "../assets/piece-01.jpg";
-import piece02 from "../assets/piece-02.jpg";
-import piece03 from "../assets/piece-03.jpg";
+import collectionEssentials from "../assets/collection-essentials.jpg";
+import collectionSport from "../assets/collection-sport.jpg";
+import collectionBaby from "../assets/collection-baby.jpg";
 import { SiteHeader, SiteFooter } from "../components/SiteChrome";
 
 
@@ -555,7 +555,7 @@ function WaliyaPage() {
             categories={["Polo Shirts","Dress Shirts","Hoodies","Sweaters","Jackets","Shorts","Boxer Shorts","Socks"]}
             cta="Explore Essentials"
             href="/store#everyday-essentials"
-            image={piece01}
+            image={collectionEssentials}
             align="left"
           />
           {/* 02 — SPORT & ACTIVE */}
@@ -567,7 +567,7 @@ function WaliyaPage() {
             categories={["Sportswear","Sports Hats","Scarves","Headwear"]}
             cta="Explore Sport"
             href="/store#sport-active"
-            image={piece02}
+            image={collectionSport}
             align="right"
           />
           {/* 03 — BABY & KIDS */}
@@ -579,7 +579,7 @@ function WaliyaPage() {
             categories={["Baby Clothing","Baby Sweatshirts","Baby Shirts","Baby Pants","Baby Hats","Baby Socks"]}
             cta="Explore Baby & Kids"
             href="/store#baby-kids"
-            image={piece03}
+            image={collectionBaby}
             align="left"
           />
         </div>

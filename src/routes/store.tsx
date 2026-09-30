@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { PageShell } from "../components/SiteChrome";
 import { Reveal, RevealStagger, RevealChild } from "../components/Reveal";
-import piece01 from "../assets/piece-01.jpg";
-import piece02 from "../assets/piece-02.jpg";
-import piece03 from "../assets/piece-03.jpg";
+import collectionEssentials from "../assets/collection-essentials.jpg";
+import collectionSport from "../assets/collection-sport.jpg";
+import collectionBaby from "../assets/collection-baby.jpg";
 
 export const Route = createFileRoute("/store")({
   head: () => ({
@@ -78,7 +78,7 @@ const COLLECTIONS: Collection[] = [
     ],
     cta: "EXPLORE ESSENTIALS →",
     href: "/collection",
-    image: piece01,
+    image: collectionEssentials,
     align: "left",
   },
   {
@@ -91,7 +91,7 @@ const COLLECTIONS: Collection[] = [
     categories: ["Sportswear", "Sports Hats", "Scarves", "Headwear"],
     cta: "EXPLORE SPORT →",
     href: "/collection",
-    image: piece02,
+    image: collectionSport,
     align: "right",
   },
   {
@@ -111,7 +111,7 @@ const COLLECTIONS: Collection[] = [
     ],
     cta: "EXPLORE BABY & KIDS →",
     href: "/collection",
-    image: piece03,
+    image: collectionBaby,
     align: "left",
   },
 ];

@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { PageShell } from "../components/SiteChrome";
-import piece01 from "../assets/piece-01.jpg";
-import piece02 from "../assets/piece-02.jpg";
-import piece03 from "../assets/piece-03.jpg";
+import collectionEssentials from "../assets/collection-essentials.jpg";
+import collectionSport from "../assets/collection-sport.jpg";
+import collectionBaby from "../assets/collection-baby.jpg";
 
 export const Route = createFileRoute("/collection")({
   head: () => ({
@@ -32,7 +32,7 @@ const PIECES = [
     title: "The Ascension Coat",
     tag: "Highland Wool · Hand-Tailored",
     price: "€ 4,200",
-    img: piece01,
+    img: collectionEssentials,
     copy: "Weight and silence. Cut for cold air and long silences, structured to hold its shape at 4,000 metres.",
   },
   {
@@ -40,7 +40,7 @@ const PIECES = [
     title: "The Weaver's Thread",
     tag: "Hand-woven Cotton · Bronze Silk Warp",
     price: "€ 2,850",
-    img: piece02,
+    img: collectionSport,
     copy: "Every thread drawn by hand on a wooden loom. Inherited geometry, spoken through cloth.",
   },
   {
@@ -48,7 +48,7 @@ const PIECES = [
     title: "The Obsidian Suit",
     tag: "Volcanic Black Wool · Structured Shoulder",
     price: "€ 5,600",
-    img: piece03,
+    img: collectionBaby,
     copy: "Cut from a single bolt of matte black wool. Nothing shines. Nothing wavers.",
   },
   {
@@ -56,7 +56,7 @@ const PIECES = [
     title: "The Simien Cape",
     tag: "Alpaca Blend · Chrome Clasp",
     price: "€ 3,400",
-    img: piece01,
+    img: collectionEssentials,
     copy: "A single silhouette shaped by wind. Wearable weather.",
   },
   {
@@ -64,7 +64,7 @@ const PIECES = [
     title: "The Bronze Sash",
     tag: "Hand-loom Silk · Bronze Thread",
     price: "€ 980",
-    img: piece02,
+    img: collectionSport,
     copy: "The finishing line of the atelier. Tied once, worn always.",
   },
   {
@@ -72,7 +72,7 @@ const PIECES = [
     title: "The Peak Trouser",
     tag: "Twill Wool · Tapered",
     price: "€ 1,650",
-    img: piece03,
+    img: collectionBaby,
     copy: "Architecture for the leg. A trouser that stands when you sit down.",
   },
 ];
