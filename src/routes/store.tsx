@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { useRef, type ReactNode } from "react";
+import { motion } from "motion/react";
 import { PageShell } from "../components/SiteChrome";
 import { Reveal, RevealStagger, RevealChild } from "../components/Reveal";
 import piece01 from "../assets/piece-01.jpg";
@@ -10,53 +9,94 @@ import piece03 from "../assets/piece-03.jpg";
 export const Route = createFileRoute("/store")({
   head: () => ({
     meta: [
-      { title: "Store — WALIYA" },
+      { title: "The Waliya Collection — Store" },
       {
         name: "description",
         content:
-          "Acquire WALIYA premium garments through our curated storefronts on Shopify, Printify, and Etsy.",
+          "Three expressions of the atelier, crafted for different moments. Explore Everyday Essentials, Sport & Active, and Baby & Kids.",
       },
-      { property: "og:title", content: "Store — WALIYA" },
+      { property: "og:title", content: "The Waliya Collection — Store" },
       {
         property: "og:description",
-        content: "Premium Ethiopian luxury clothing, curated across Shopify, Printify, and Etsy.",
+        content:
+          "Three collections. One Waliya. Explore Everyday Essentials, Sport & Active, and Baby & Kids.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/favicon-512x512.png" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: StorePage,
 });
 
-type Vendor = {
-  name: string;
-  tag: string;
-  copy: string;
+type Collection = {
+  n: string;
+  id: string;
+  label: string;
+  title: string;
+  description: string;
+  categories: string[];
+  cta: string;
   href: string;
-  mark: ReactNode;
+  image: string;
+  align: "left" | "right";
 };
 
-const VENDORS: Vendor[] = [
+const COLLECTIONS: Collection[] = [
   {
-    name: "Shopify",
-    tag: "Flagship Boutique",
-    copy: "The full atelier collection, numbered and shipped from Addis Ababa. Made-to-measure requests handled here.",
-    href: "https://www.shopify.com",
-    mark: <ShopifyMark />,
+    n: "01",
+    id: "everyday-essentials",
+    label: "01 — EVERYDAY ESSENTIALS",
+    title: "EVERYDAY ESSENTIALS",
+    description:
+      "Essential pieces, elevated. Everyday clothing crafted for movement, comfort, and understated presence.",
+    categories: [
+      "Polo Shirts",
+      "Dress Shirts",
+      "Hoodies",
+      "Sweaters",
+      "Jackets",
+      "Shorts",
+      "Boxer Shorts",
+      "Socks",
+    ],
+    cta: "EXPLORE ESSENTIALS →",
+    href: "/collection",
+    image: piece01,
+    align: "left",
   },
   {
-    name: "Printify",
-    tag: "Signature Editions",
-    copy: "Print-refined capsule pieces — bronze-embroidered tees, atelier hoodies, silk-lined scarves.",
-    href: "https://printify.com",
-    mark: <PrintifyMark />,
+    n: "02",
+    id: "sport-active",
+    label: "02 — SPORT & ACTIVE",
+    title: "SPORT & ACTIVE",
+    description:
+      "Made for movement. Performance-inspired essentials designed to move with you, wherever the journey leads.",
+    categories: ["Sportswear", "Sports Hats", "Scarves", "Headwear"],
+    cta: "EXPLORE SPORT →",
+    href: "/collection",
+    image: piece02,
+    align: "right",
   },
   {
-    name: "Etsy",
-    tag: "Archive & Rare",
-    copy: "Archive pieces, single-cut samples, and heritage textiles. Rare, one-of-one, curated by hand.",
-    href: "https://www.etsy.com",
-    mark: <EtsyMark />,
+    n: "03",
+    id: "baby-kids",
+    label: "03 — BABY & KIDS",
+    title: "BABY & KIDS",
+    description:
+      "The next generation of elevation. Thoughtful essentials made for the smallest members of the Waliya family.",
+    categories: [
+      "Baby Clothing",
+      "Baby Sweatshirts",
+      "Baby Shirts",
+      "Baby Pants",
+      "Baby Hats",
+      "Baby Socks",
+    ],
+    cta: "EXPLORE BABY & KIDS →",
+    href: "/collection",
+    image: piece03,
+    align: "left",
   },
 ];
 
@@ -64,24 +104,27 @@ const PRODUCTS = [
   {
     n: "01",
     title: "Highland Wool Overcoat",
+    collection: "EVERYDAY ESSENTIALS",
     price: "€ 4,200",
-    tag: "Shopify · Made-to-Order",
+    platform: "Shopify · Made-to-Measure",
     img: piece01,
     href: "https://www.shopify.com",
   },
   {
     n: "02",
     title: "Bronze-Warp Silk Scarf",
+    collection: "SPORT & ACTIVE",
     price: "€ 320",
-    tag: "Printify · Capsule",
+    platform: "Printify · Capsule Edition",
     img: piece02,
     href: "https://printify.com",
   },
   {
     n: "03",
     title: "Obsidian Archive Suit",
+    collection: "EVERYDAY ESSENTIALS",
     price: "€ 5,600",
-    tag: "Etsy · One-of-One",
+    platform: "Etsy · Archive Rare",
     img: piece03,
     href: "https://www.etsy.com",
   },
@@ -91,41 +134,80 @@ function StorePage() {
   return (
     <PageShell
       eyebrow="V · The Store"
-      title="Acquire the Atelier."
-      intro="WALIYA is stocked across three curated storefronts. Choose your entrance — each carries a different chapter of the collection."
+      title="The Waliya Collection."
+      intro="Three expressions of the atelier, crafted for different moments."
     >
-      <RevealStagger
-        className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8"
-        stagger={0.12}
-      >
-        {VENDORS.map((v) => (
-          <RevealChild key={v.name}>
-            <VendorCard vendor={v} />
-          </RevealChild>
+      {/* Quick Collection Anchor Navigation */}
+      <Reveal className="mb-20 flex flex-wrap items-center gap-3 md:gap-4">
+        {COLLECTIONS.map((c) => (
+          <a
+            key={c.id}
+            href={`#${c.id}`}
+            className="group inline-flex items-center gap-2 border border-[color:var(--border)] bg-white/[0.015] px-4 py-2 transition-all duration-500 hover:border-[color:var(--bronze)] hover:bg-white/[0.03]"
+          >
+            <span className="font-serif text-xs text-[color:var(--bronze)]">{c.n}</span>
+            <span className="tracking-luxe text-[0.58rem] text-[color:var(--steel)] group-hover:text-chrome transition-colors">
+              {c.title}
+            </span>
+          </a>
         ))}
-      </RevealStagger>
-
-      <Reveal className="mt-32">
-        <span className="tracking-luxe text-[0.62rem] text-[color:var(--bronze)]">
-          Featured Pieces
-        </span>
-        <h2 className="font-serif mt-4 text-[clamp(2rem,5vw,3.5rem)] leading-[1.05] text-chrome">
-          Six pieces per season. Three storefronts.
-        </h2>
-        <div className="hairline mt-8 w-32" />
+        <a
+          href="#featured-pieces"
+          className="group inline-flex items-center gap-2 border border-[color:var(--border)] bg-white/[0.015] px-4 py-2 transition-all duration-500 hover:border-[color:var(--bronze)] hover:bg-white/[0.03]"
+        >
+          <span className="font-serif text-xs text-[color:var(--bronze)]">✦</span>
+          <span className="tracking-luxe text-[0.58rem] text-[color:var(--steel)] group-hover:text-chrome transition-colors">
+            Featured Pieces
+          </span>
+        </a>
       </Reveal>
 
-      <RevealStagger className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-3" stagger={0.1}>
-        {PRODUCTS.map((p) => (
-          <RevealChild key={p.n}>
-            <ProductCard product={p} />
-          </RevealChild>
+      {/* Primary Collections — Editorial Chapters */}
+      <div className="space-y-28 md:space-y-40">
+        {COLLECTIONS.map((c) => (
+          <CollectionSection key={c.id} collection={c} />
         ))}
-      </RevealStagger>
+      </div>
 
-      <Reveal className="mt-32 flex flex-col items-center gap-6 border-t border-[color:var(--border)] pt-16 text-center">
+      {/* Featured Pieces */}
+      <section id="featured-pieces" className="scroll-mt-32 mt-36 md:mt-48">
+        <Reveal>
+          <span className="tracking-luxe text-[0.62rem] text-[color:var(--bronze)]">
+            Featured Pieces
+          </span>
+          <h2 className="font-serif mt-4 text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.05] text-chrome">
+            Selected from the collection.
+          </h2>
+          <div className="hairline mt-8 w-28 md:w-36" />
+        </Reveal>
+
+        <RevealStagger className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12" stagger={0.12}>
+          {PRODUCTS.map((p) => (
+            <RevealChild key={p.n}>
+              <ProductCard product={p} />
+            </RevealChild>
+          ))}
+        </RevealStagger>
+      </section>
+
+      {/* Commerce Partners Footer Note */}
+      <Reveal className="mt-32 border-t border-[color:var(--border)] pt-12">
+        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
+          <span className="tracking-luxe text-[0.58rem] text-[color:var(--steel)]">
+            Curated & Fulfilled via Atelier Partners on Shopify · Printify · Etsy
+          </span>
+          <div className="flex items-center gap-7 opacity-50 transition-opacity hover:opacity-85">
+            <ShopifyMark />
+            <PrintifyMark />
+            <EtsyMark />
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Private Commissions & Contact */}
+      <Reveal className="mt-20 flex flex-col items-center gap-6 border-t border-[color:var(--border)] pt-16 text-center">
         <span className="tracking-luxe text-[0.6rem] text-[color:var(--steel)]">
-          For private commissions & wholesale
+          For private commissions & bespoke orders
         </span>
         <a href="/contact" className="btn-luxe">
           <span className="dot" />
@@ -136,62 +218,99 @@ function StorePage() {
   );
 }
 
-function VendorCard({ vendor }: { vendor: Vendor }) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rx = useSpring(useTransform(my, [-40, 40], [6, -6]), {
-    stiffness: 120,
-    damping: 15,
-  });
-  const ry = useSpring(useTransform(mx, [-40, 40], [-6, 6]), {
-    stiffness: 120,
-    damping: 15,
-  });
-
-  function onMove(e: React.MouseEvent) {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    mx.set(e.clientX - r.left - r.width / 2);
-    my.set(e.clientY - r.top - r.height / 2);
-  }
-  function onLeave() {
-    mx.set(0);
-    my.set(0);
-  }
+function CollectionSection({ collection }: { collection: Collection }) {
+  const isRight = collection.align === "right";
 
   return (
-    <motion.a
-      ref={ref}
-      href={vendor.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-      whileHover={{ y: -6 }}
-      transition={{ type: "spring", stiffness: 200, damping: 22 }}
-      style={{ rotateX: rx, rotateY: ry, transformPerspective: 900 }}
-      className="group relative block h-full overflow-hidden border border-[color:var(--border)] bg-gradient-to-b from-white/[0.02] to-transparent p-8 transition-colors duration-700 hover:border-[color:var(--bronze)]/60"
+    <article
+      id={collection.id}
+      className="scroll-mt-32 border-b border-[color:var(--border)]/60 pb-24 md:pb-36"
     >
-      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(600px circle at var(--x,50%) var(--y,50%), rgba(176,133,88,0.10), transparent 40%)",
-        }}
-      />
-      <div className="relative flex h-16 items-center">{vendor.mark}</div>
-      <div className="hairline my-8 w-16" />
-      <span className="tracking-luxe text-[0.6rem] text-[color:var(--bronze)]">
-        {vendor.tag}
-      </span>
-      <h3 className="font-serif mt-3 text-3xl text-chrome md:text-4xl">{vendor.name}</h3>
-      <p className="font-serif mt-4 text-[color:var(--chrome)]/70">{vendor.copy}</p>
-      <div className="mt-10 flex items-center justify-between">
-        <span className="tracking-luxe text-[0.6rem] text-chrome">Enter Store →</span>
-        <span className="h-px w-10 origin-left scale-x-0 bg-[color:var(--bronze)] transition-transform duration-700 group-hover:scale-x-100" />
+      <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-16">
+        {/* Large Editorial Image */}
+        <div className={`md:col-span-7 ${isRight ? "md:order-2" : "md:order-1"}`}>
+          <Reveal>
+            <a
+              href={collection.href}
+              className="group relative block aspect-[4/3] w-full overflow-hidden border border-[color:var(--border)] bg-[color:var(--charcoal)]"
+            >
+              <img
+                src={collection.image}
+                alt={collection.title}
+                loading="lazy"
+                className="h-full w-full object-cover grayscale-[20%] transition-all duration-[1400ms] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
+                style={{ filter: "brightness(0.9)" }}
+              />
+              {/* Subtle chrome sweep highlight */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                style={{
+                  background:
+                    "linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%)",
+                }}
+              />
+              <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5" />
+              <span className="tracking-luxe absolute left-4 top-4 text-[0.6rem] text-[color:var(--bronze)]">
+                {collection.n}
+              </span>
+            </a>
+          </Reveal>
+        </div>
+
+        {/* Editorial Text & Category List */}
+        <div className={`md:col-span-5 ${isRight ? "md:order-1" : "md:order-2"}`}>
+          <Reveal delay={0.1}>
+            <span className="tracking-luxe text-[0.62rem] text-[color:var(--bronze)]">
+              {collection.label}
+            </span>
+          </Reveal>
+
+          <Reveal delay={0.18}>
+            <h2 className="font-serif mt-4 text-[clamp(2.2rem,4vw,3.6rem)] leading-[1] text-chrome tracking-tight">
+              {collection.title}
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.26}>
+            <div className="hairline my-6 w-20 md:w-24" />
+          </Reveal>
+
+          <Reveal delay={0.32}>
+            <p className="font-serif text-[clamp(1.05rem,1.8vw,1.4rem)] leading-relaxed text-[color:var(--chrome)]/85">
+              {collection.description}
+            </p>
+          </Reveal>
+
+          {/* Categories pill list */}
+          <Reveal delay={0.4} className="mt-8">
+            <span className="tracking-luxe block text-[0.58rem] text-[color:var(--steel)] mb-3">
+              Included Categories:
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {collection.categories.map((cat) => (
+                <span
+                  key={cat}
+                  className="inline-block border border-[color:var(--border)] bg-white/[0.015] px-3 py-1 text-[0.65rem] tracking-[0.16em] uppercase text-[color:var(--chrome)]/75"
+                >
+                  {cat}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+
+          {/* Subtle text CTA */}
+          <Reveal delay={0.48} className="mt-10">
+            <a
+              href={collection.href}
+              className="group/cta inline-flex items-center gap-3 text-xs tracking-luxe text-chrome transition-colors duration-500 hover:text-[color:var(--bronze)]"
+            >
+              <span>{collection.cta}</span>
+              <span className="h-px w-8 origin-left scale-x-75 bg-[color:var(--bronze)] transition-transform duration-500 group-hover/cta:scale-x-125" />
+            </a>
+          </Reveal>
+        </div>
       </div>
-    </motion.a>
+    </article>
   );
 }
 
@@ -209,28 +328,33 @@ function ProductCard({
       transition={{ type: "spring", stiffness: 200, damping: 22 }}
       className="group block"
     >
-      <div className="relative aspect-[3/4] overflow-hidden border border-[color:var(--border)]">
+      <div className="relative aspect-[3/4] overflow-hidden border border-[color:var(--border)] bg-[color:var(--charcoal)]">
         <motion.img
           src={product.img}
           alt={product.title}
           loading="lazy"
-          initial={{ scale: 1.08 }}
+          initial={{ scale: 1.06 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-          className="h-full w-full object-cover grayscale-[35%] transition-all duration-1000 group-hover:scale-[1.05] group-hover:grayscale-0"
+          className="h-full w-full object-cover grayscale-[25%] transition-all duration-1000 group-hover:scale-[1.05] group-hover:grayscale-0"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-70" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-75" />
         <span className="tracking-luxe absolute left-4 top-4 text-[0.6rem] text-[color:var(--bronze)]">
           {product.n}
         </span>
       </div>
-      <div className="mt-5 flex items-start justify-between gap-4">
+      <div className="mt-6 flex items-start justify-between gap-4">
         <div>
-          <h3 className="font-serif text-2xl text-chrome">{product.title}</h3>
-          <p className="tracking-luxe mt-2 text-[0.58rem] text-[color:var(--steel)]">
-            {product.tag}
+          <h3 className="font-serif text-2xl text-chrome group-hover:text-white transition-colors">
+            {product.title}
+          </h3>
+          <p className="tracking-luxe mt-2 text-[0.6rem] text-[color:var(--steel)]">
+            {product.collection}
           </p>
+          <span className="mt-1 block text-[0.65rem] text-[color:var(--steel)]/60">
+            {product.platform}
+          </span>
         </div>
         <span className="font-serif text-lg text-[color:var(--bronze)]">{product.price}</span>
       </div>
@@ -242,7 +366,7 @@ function ProductCard({
 
 function ShopifyMark() {
   return (
-    <svg viewBox="0 0 220 48" className="h-8 w-auto text-chrome" fill="none">
+    <svg viewBox="0 0 220 48" className="h-6 w-auto text-chrome" fill="none">
       <path
         d="M24 6c-4 0-7 3-8 7l-6 2c-1 0-1 0-1 1l-4 26 20 4V6zm2 0v40l14-3-4-27c0-1-1-1-1-1l-3-1c0-5-3-8-6-8zm-2 4c1 0 3 1 3 5l-6 2c1-4 2-7 3-7z"
         fill="currentColor"
@@ -251,7 +375,7 @@ function ShopifyMark() {
         x="56"
         y="32"
         fontFamily="Cormorant Garamond, serif"
-        fontSize="26"
+        fontSize="24"
         fontWeight="400"
         letterSpacing="0.18em"
         fill="currentColor"
@@ -264,7 +388,7 @@ function ShopifyMark() {
 
 function PrintifyMark() {
   return (
-    <svg viewBox="0 0 230 48" className="h-8 w-auto text-chrome" fill="none">
+    <svg viewBox="0 0 230 48" className="h-6 w-auto text-chrome" fill="none">
       <rect x="4" y="8" width="32" height="32" stroke="currentColor" strokeWidth="1.5" fill="none" />
       <path
         d="M12 32V16h8c3 0 5 2 5 5s-2 5-5 5h-4v6"
@@ -277,7 +401,7 @@ function PrintifyMark() {
         x="50"
         y="32"
         fontFamily="Cormorant Garamond, serif"
-        fontSize="26"
+        fontSize="24"
         fontWeight="400"
         letterSpacing="0.18em"
         fill="currentColor"
@@ -290,7 +414,7 @@ function PrintifyMark() {
 
 function EtsyMark() {
   return (
-    <svg viewBox="0 0 180 48" className="h-8 w-auto text-chrome" fill="none">
+    <svg viewBox="0 0 180 48" className="h-6 w-auto text-chrome" fill="none">
       <circle cx="22" cy="24" r="16" stroke="currentColor" strokeWidth="1.5" fill="none" />
       <path
         d="M15 16h14M15 24h10M15 32h14"
@@ -302,7 +426,7 @@ function EtsyMark() {
         x="50"
         y="32"
         fontFamily="Cormorant Garamond, serif"
-        fontSize="26"
+        fontSize="24"
         fontWeight="400"
         letterSpacing="0.22em"
         fill="currentColor"
