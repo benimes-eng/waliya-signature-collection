@@ -152,36 +152,6 @@ const STOREFRONTS: Storefront[] = [
   },
 ];
 
-const PRODUCTS = [
-  {
-    n: "01",
-    title: "Highland Wool Overcoat",
-    collection: "EVERYDAY ESSENTIALS",
-    price: "€ 4,200",
-    platform: "Shopify · Made-to-Measure",
-    img: piece01,
-    href: "https://www.shopify.com",
-  },
-  {
-    n: "02",
-    title: "Bronze-Warp Silk Scarf",
-    collection: "SPORT & ACTIVE",
-    price: "€ 320",
-    platform: "Printify · Capsule Edition",
-    img: piece02,
-    href: "https://printify.com",
-  },
-  {
-    n: "03",
-    title: "Obsidian Archive Suit",
-    collection: "EVERYDAY ESSENTIALS",
-    price: "€ 5,600",
-    platform: "Etsy · Archive Rare",
-    img: piece03,
-    href: "https://www.etsy.com",
-  },
-];
-
 /* ── Page ───────────────────────────────────────────────── */
 
 function StorePage() {
@@ -420,56 +390,6 @@ function StoreCard({ store }: { store: Storefront }) {
             "radial-gradient(circle at bottom right, rgba(176,133,88,0.18) 0%, transparent 70%)",
         }}
       />
-    </motion.a>
-  );
-}
-
-/* ── ProductCard ─────────────────────────────────────────── */
-
-function ProductCard({
-  product,
-}: {
-  product: (typeof PRODUCTS)[number];
-}) {
-  return (
-    <motion.a
-      href={product.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      whileHover={{ y: -8 }}
-      transition={{ type: "spring", stiffness: 200, damping: 22 }}
-      className="group block"
-    >
-      <div className="relative aspect-[3/4] overflow-hidden border border-[color:var(--border)] bg-[color:var(--charcoal)]">
-        <motion.img
-          src={product.img}
-          alt={product.title}
-          loading="lazy"
-          initial={{ scale: 1.06 }}
-          whileInView={{ scale: 1 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-          className="h-full w-full object-cover grayscale-[25%] transition-all duration-1000 group-hover:scale-[1.05] group-hover:grayscale-0"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-75" />
-        <span className="tracking-luxe absolute left-4 top-4 text-[0.6rem] text-[color:var(--bronze)]">
-          {product.n}
-        </span>
-      </div>
-      <div className="mt-6 flex items-start justify-between gap-4">
-        <div>
-          <h3 className="font-serif text-2xl text-chrome group-hover:text-white transition-colors">
-            {product.title}
-          </h3>
-          <p className="tracking-luxe mt-2 text-[0.6rem] text-[color:var(--steel)]">
-            {product.collection}
-          </p>
-          <span className="mt-1 block text-[0.65rem] text-[color:var(--steel)]/60">
-            {product.platform}
-          </span>
-        </div>
-        <span className="font-serif text-lg text-[color:var(--bronze)]">{product.price}</span>
-      </div>
     </motion.a>
   );
 }
