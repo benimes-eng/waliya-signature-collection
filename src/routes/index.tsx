@@ -295,7 +295,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="tracking-luxe mt-4 text-[clamp(0.68rem,1.2vw,0.95rem)] font-light text-[color:var(--bronze)] md:mt-5"
+          className="tracking-luxe mt-4 text-[clamp(0.68rem,1.2vw,0.95rem)] font-light text-white md:mt-5"
         >
           Signature Collection
         </motion.p>
