@@ -344,6 +344,129 @@ function HeroSection() {
 
 
 /* ------------------------------------------------------------------ */
+/*  HeritageSection — cinematic manifesto with scroll motion          */
+/* ------------------------------------------------------------------ */
+function HeritageSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const mountainY = useTransform(scrollYProgress, [0, 1], [70, -50]);
+  const mountainScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const topoY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+
+  const lines = [
+    { text: "Born from the mountains.", tone: "chrome", delay: 0.08 },
+    { text: "Crafted for the world.", tone: "chrome-soft", delay: 0.16 },
+    { text: "Inspired by the Walia Ibex,", tone: "gold-shimmer", delay: 0.24 },
+    { text: "WALIYA Signature Collection is for those", tone: "steel", delay: 0.32 },
+    { text: "who rise above the ordinary to reach", tone: "steel-muted", delay: 0.40 },
+    { text: "the extraordinary.", tone: "extraordinary", delay: 0.48 },
+  ];
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative z-[15] min-h-[115vh] flex items-center justify-center bg-background px-6 pt-40 pb-28 md:px-14 md:pt-52 md:pb-36 overflow-hidden"
+    >
+      {/* Topo lines with subtle scroll parallax */}
+      <motion.div
+        style={{ y: topoY }}
+        className="topo pointer-events-none absolute inset-0 opacity-60"
+        aria-hidden
+      />
+
+      {/* Mountain silhouette with parallax lift */}
+      <motion.div
+        style={{ y: mountainY, scale: mountainScale }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[48vh] overflow-hidden opacity-35"
+      >
+        <img
+          src={mountainsSrc}
+          alt=""
+          className="h-full w-full object-cover"
+          style={{ filter: "grayscale(1) contrast(1.25) brightness(0.32)" }}
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+      </motion.div>
+
+      {/* Ambient warm radial glow */}
+      <div
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[700px] w-[700px] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(176,133,88,0.14) 0%, rgba(176,133,88,0.03) 45%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+
+      <div className="relative mx-auto w-full max-w-5xl text-left">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-12%" }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8 md:mb-12 flex items-center gap-3"
+        >
+          <span className="tracking-luxe text-[0.62rem] text-[color:var(--bronze)] md:text-[0.68rem]">
+            I · Heritage
+          </span>
+          <span className="h-px w-12 bg-[color:var(--bronze)]/40" />
+        </motion.div>
+
+        <div className="space-y-3 sm:space-y-4 md:space-y-5">
+          {lines.map((line, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{
+                duration: 1.1,
+                delay: line.delay,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <h2
+                className={`font-serif text-[clamp(1.75rem,3.8vw,3.6rem)] leading-[1.18] tracking-tight ${
+                  line.tone === "chrome"
+                    ? "text-chrome font-light"
+                    : line.tone === "chrome-soft"
+                    ? "text-[color:var(--chrome)]/85 font-light"
+                    : line.tone === "steel"
+                    ? "text-[color:var(--chrome)]/70 font-light"
+                    : line.tone === "steel-muted"
+                    ? "text-[color:var(--steel)] font-light"
+                    : line.tone === "gold-shimmer"
+                    ? "font-normal drop-shadow-[0_0_25px_rgba(212,175,55,0.35)]"
+                    : "text-chrome font-normal drop-shadow-[0_0_20px_rgba(255,255,255,0.25)]"
+                }`}
+                style={
+                  line.tone === "gold-shimmer"
+                    ? {
+                        background:
+                          "linear-gradient(105deg, #d4af37 0%, #fff1b8 40%, #b08558 75%, #d4af37 100%)",
+                        backgroundSize: "200% auto",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }
+                    : undefined
+                }
+              >
+                {line.text}
+              </h2>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Page                                                              */
 /* ------------------------------------------------------------------ */
 function WaliyaPage() {
@@ -392,67 +515,7 @@ function WaliyaPage() {
       <Particles opacity={particleOpacity} />
       <SiteHeader />
       <HeroSection />
-
-      {/* ============================================================ */}
-      {/*  HERITAGE                                                    */}
-      {/* ============================================================ */}
-      <section className="relative z-[15] min-h-[90vh] flex items-center bg-background px-6 py-24 md:px-14 md:py-36">
-        <div
-          className="topo pointer-events-none absolute inset-0 opacity-70"
-          aria-hidden
-        />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[45vh] overflow-hidden opacity-30">
-          <img
-            src={mountainsSrc}
-            alt=""
-            className="h-full w-full object-cover"
-            style={{ filter: "grayscale(1) contrast(1.2) brightness(0.35)" }}
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-        </div>
-
-        <div className="relative mx-auto w-full max-w-6xl">
-          <Reveal>
-            <span className="tracking-luxe text-[0.65rem] text-[color:var(--bronze)]">
-              I · Heritage
-            </span>
-          </Reveal>
-
-          {/* Primary monumental statement */}
-          <div className="mt-8 md:mt-12 space-y-2">
-            <Reveal delay={0.12}>
-              <h2 className="font-serif text-[clamp(2.75rem,7vw,6.5rem)] leading-[0.98] text-chrome tracking-tight">
-                Born from the mountains.
-              </h2>
-            </Reveal>
-            <Reveal delay={0.24}>
-              <h2 className="font-serif text-[clamp(2.75rem,7vw,6.5rem)] leading-[0.98] text-[color:var(--chrome)]/70 tracking-tight">
-                Crafted for the world.
-              </h2>
-            </Reveal>
-          </div>
-
-          {/* Luxury hairline divider */}
-          <Reveal delay={0.34}>
-            <div className="hairline my-10 md:my-14 w-28 md:w-36" />
-          </Reveal>
-
-          {/* Manifesto description */}
-          <div className="max-w-3xl space-y-4">
-            <Reveal delay={0.42}>
-              <p className="tracking-luxe text-xs md:text-[0.78rem] text-[color:var(--bronze)] font-medium">
-                Inspired by the Walia Ibex
-              </p>
-            </Reveal>
-            <Reveal delay={0.52}>
-              <p className="font-serif text-[clamp(1.25rem,2.4vw,2.2rem)] leading-[1.35] text-[color:var(--chrome)]/90">
-                WALIYA Signature Collection is for those who rise above the ordinary to reach <span className="text-chrome font-normal">the extraordinary</span>.
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      <HeritageSection />
 
 
 
