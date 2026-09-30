@@ -34,26 +34,60 @@ export const Route = createFileRoute("/heritage")({
 /* ── Continuous Background Video ──────────────────────────── */
 function BackgroundVideo({
   src,
+  fallbackSrc,
   className,
   style,
 }: {
   src?: string;
+  fallbackSrc?: string;
   className?: string;
   style?: React.CSSProperties;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.muted = true;
-    el.play().catch(() => {});
-  }, [src]);
+    const video = ref.current;
+    if (!video) return;
+
+    // Strict muted requirements for Chrome, Safari, iOS, Edge
+    video.defaultMuted = true;
+    video.muted = true;
+    video.setAttribute("playsinline", "true");
+    video.setAttribute("webkit-playsinline", "true");
+
+    const playVideo = () => {
+      const p = video.play();
+      if (p !== undefined) {
+        p.catch(() => {
+          // If browser autoplay policy temporarily restricted playback,
+          // instantly play on first touch, scroll, or click
+          const unlock = () => {
+            video.play().catch(() => {});
+            window.removeEventListener("touchstart", unlock);
+            window.removeEventListener("click", unlock);
+            window.removeEventListener("scroll", unlock);
+          };
+          window.addEventListener("touchstart", unlock, { once: true, passive: true });
+          window.addEventListener("click", unlock, { once: true, passive: true });
+          window.addEventListener("scroll", unlock, { once: true, passive: true });
+        });
+      }
+    };
+
+    video.load();
+
+    if (video.readyState >= 2) {
+      playVideo();
+    } else {
+      video.addEventListener("loadeddata", playVideo, { once: true });
+      video.addEventListener("canplay", playVideo, { once: true });
+    }
+  }, [src, fallbackSrc]);
 
   return (
     <video
       ref={ref}
-      src={src}
+      src={src || fallbackSrc}
       autoPlay
       muted
       loop
@@ -61,7 +95,10 @@ function BackgroundVideo({
       preload="auto"
       className={className}
       style={style}
-    />
+    >
+      {src && <source src={src} type="video/mp4" />}
+      {fallbackSrc && <source src={fallbackSrc} type="video/mp4" />}
+    </video>
   );
 }
 
@@ -359,6 +396,7 @@ function StrengthSection() {
           >
             <BackgroundVideo
               src={VIDEO_SRC}
+              fallbackSrc="/Waliya01.mp4"
               className="block w-full h-full object-cover"
               style={{ aspectRatio: "1 / 1" }}
             />
@@ -624,6 +662,7 @@ function HarmonySection() {
           <motion.div style={{ scale: videoScale }} className="w-full h-full">
             <BackgroundVideo
               src={VIDEO_SRC}
+              fallbackSrc="/Waliya02.mp4"
               className="block w-full h-full object-cover"
               style={{ aspectRatio: "1 / 1" }}
             />
