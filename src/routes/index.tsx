@@ -97,24 +97,27 @@ function Particles({ opacity }: { opacity: MotionValue<number> }) {
 /*  Fixed Ibex layer — the emotional anchor                           */
 /* ------------------------------------------------------------------ */
 function IbexLayer({ progress }: { progress: MotionValue<number> }) {
-  // Ibex forges in, holds the intro, then fully clears well before Heritage.
-  // No reappearance from the fixed layer — the final CTA renders its own inline Ibex.
-  const opacity = useTransform(
+  // Ibex forges in smoothly, holds centre-stage, then gracefully dissolves.
+  // More keyframe stops + spring smoothing on opacity for a silky cinematic feel.
+  const rawOpacity = useTransform(
     progress,
-    [0, 0.03, 0.08, 0.16, 0.22, 0.28, 1],
-    [0, 0.35, 0.9, 1, 0.6, 0, 0],
+    [0,    0.02, 0.06, 0.12, 0.18, 0.22, 0.26, 0.30, 1],
+    [0,    0.15, 0.65, 0.92,  1,   0.88, 0.45,  0,   0],
   );
+  // Spring-smooth the opacity so fast scrolling never makes it pop
+  const opacity = useSpring(rawOpacity, { stiffness: 50, damping: 22, mass: 1 });
+
   const scale = useTransform(
     progress,
-    [0, 0.05, 0.12, 0.2, 0.28, 1],
-    [0.62, 0.88, 1, 1.02, 0.9, 0.9],
+    [0,    0.04, 0.10, 0.18, 0.26, 0.30, 1],
+    [0.58, 0.82, 0.97, 1.01, 1.03, 0.95, 0.95],
   );
   const blur = useTransform(
     progress,
-    [0, 0.04, 0.1, 0.2, 0.28, 1],
-    [42, 14, 1, 0, 12, 12],
+    [0,    0.03, 0.08, 0.16, 0.22, 0.30, 1],
+    [48,   20,   4,    0.5,  0,    10,   10],
   );
-  const rotate = useTransform(progress, [0, 0.28], [-1.4, 0.6]);
+  const rotate = useTransform(progress, [0, 0.30], [-1.6, 0.5]);
 
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
 
