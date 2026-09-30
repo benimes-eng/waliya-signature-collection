@@ -401,12 +401,21 @@ function StrengthSection() {
               style={{ aspectRatio: "1 / 1" }}
             />
           </motion.div>
-          {/* Subtle right-edge vignette blending into text column */}
+
+          {/* Black transparent container to make video darker and smoother */}
           <div
-            className="pointer-events-none absolute inset-y-0 right-0 w-24 hidden md:block"
+            className="pointer-events-none absolute inset-0 z-[5]"
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.44)",
+            }}
+          />
+
+          {/* Subtle cinematic edge vignette blending into text column */}
+          <div
+            className="pointer-events-none absolute inset-0 z-[6]"
             style={{
               background:
-                "linear-gradient(to right, transparent, rgba(5,5,5,0.3))",
+                "linear-gradient(to right, rgba(5,5,5,0.2) 0%, transparent 20%, transparent 80%, rgba(5,5,5,0.4) 100%)",
             }}
           />
         </div>
@@ -651,14 +660,6 @@ function HarmonySection() {
 
         {/* RIGHT — Video */}
         <div className="relative flex items-center justify-center overflow-hidden bg-[#080808] order-1 md:order-2">
-          {/* Left-edge vignette blending from text column */}
-          <div
-            className="pointer-events-none absolute inset-y-0 left-0 w-24 hidden md:block z-10"
-            style={{
-              background:
-                "linear-gradient(to left, transparent, rgba(5,5,5,0.3))",
-            }}
-          />
           <motion.div style={{ scale: videoScale }} className="w-full h-full">
             <BackgroundVideo
               src={VIDEO_SRC}
@@ -667,6 +668,23 @@ function HarmonySection() {
               style={{ aspectRatio: "1 / 1" }}
             />
           </motion.div>
+
+          {/* Black transparent container to make video darker and smoother */}
+          <div
+            className="pointer-events-none absolute inset-0 z-[5]"
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.44)",
+            }}
+          />
+
+          {/* Subtle cinematic edge vignette blending from text column */}
+          <div
+            className="pointer-events-none absolute inset-0 z-[6]"
+            style={{
+              background:
+                "linear-gradient(to left, rgba(5,5,5,0.2) 0%, transparent 20%, transparent 80%, rgba(5,5,5,0.4) 100%)",
+            }}
+          />
         </div>
       </div>
     </section>
