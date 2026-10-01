@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { PageShell } from "../components/SiteChrome";
 import collectionEssentials from "../assets/collection-essentials.jpg";
@@ -146,9 +146,9 @@ function AtelierPage() {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-10">
           {CHAPTERS.map((ch) => (
-            <Link
+            <a
               key={ch.n}
-              to={ch.href}
+              href={ch.href}
               className="group block border border-[color:var(--border)] bg-white/[0.015] p-6 transition-all duration-500 hover:border-[color:var(--bronze)] hover:bg-white/[0.03]"
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-[color:var(--charcoal)]">
@@ -172,7 +172,7 @@ function AtelierPage() {
                 <span>View Collection</span>
                 <span>→</span>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
       </div>
